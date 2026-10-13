@@ -1,0 +1,91 @@
+/* Warm paper theme: the look of the sites we launched with this kit (October 2026).
+   Instrument Sans (site.json theme.fontsUrl), warm off-white canvas, paper cards, a deep green
+   accent, pill buttons and soft card shadows. This file is inlined after themes/default/*.css,
+   so it only overrides tokens. Copy it into any site, or change --accent for your brand.
+   site.json sets theme.scheme "light", so the dark block below never shows on these demos;
+   switch to "auto" to use it. */
+
+:root {
+  /* Instrument Sans from Google Fonts, then the closest system faces. If the font does not load,
+     the page still reads fine in the system stack. */
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-sans);
+  --heading-weight: 600;
+  --heading-tracking: -0.035em;
+  --leading: 1.55;
+
+  --radius: 10px;
+  --radius-lg: 16px;
+  --radius-btn: 999px;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.06), 0 6px 16px rgb(0 0 0 / 0.07);
+
+  --bg: #f1eee9;
+  --surface: #f8f6f3;
+  --surface-2: #eae6e0;
+  --fg: #1a1c1e;
+  --fg-2: #5e5a55;
+  --muted: #837c73;
+  --line: #e9e5df;
+  --line-2: #efece7;
+  --line-strong: #d7d2ca;
+
+  --accent: #41603a;
+  --accent-ink: #41603a;
+  --accent-fg: #ffffff;
+  --accent-hover: #36512f;
+  --accent-soft: #e3e7e2;
+
+  --ok: #12683a;
+  --warn: #8a6a1e;
+  --bad: #b8453a;
+  --chart-2: #7cb573;
+  --chart-3: #a9927a;
+  --chart-4: #8a6a1e;
+  --chart-5: #837c73;
+}
+
+/* Small details from the source: slightly bolder header logo mark, pill badges, paper-coloured cards. */
+.logo::before { border-radius: 3px; }
+.site-header { background: color-mix(in oklab, var(--surface) 70%, var(--bg)); }
+.topics, .calc, .cta-box, .cta-final, .winner { background: var(--surface); }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1a1816;
+    --surface: #232019;
+    --surface-2: #2d2923;
+    --fg: #eef0e8;
+    --fg-2: #cfc9bd;
+    --muted: #a39b8f;
+    --line: #35302a;
+    --line-2: #2a2621;
+    --line-strong: #4a443c;
+    --accent: #41603a;
+    --accent-ink: #9fc794;
+    --accent-hover: #4d7045;
+    --accent-soft: #263024;
+    --ok: #7cb573;
+    --warn: #d9b25c;
+    --bad: #e07a6e;
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 6px 16px rgb(0 0 0 / 0.3);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1a1816;
+  --surface: #232019;
+  --surface-2: #2d2923;
+  --fg: #eef0e8;
+  --fg-2: #cfc9bd;
+  --muted: #a39b8f;
+  --line: #35302a;
+  --line-2: #2a2621;
+  --line-strong: #4a443c;
+  --accent: #41603a;
+  --accent-ink: #9fc794;
+  --accent-hover: #4d7045;
+  --accent-soft: #263024;
+  --ok: #7cb573;
+  --warn: #d9b25c;
+  --bad: #e07a6e;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 6px 16px rgb(0 0 0 / 0.3);
+}

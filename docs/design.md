@@ -2,7 +2,7 @@
 
 How the site looks, how it is organised, and how to add pages. Written 2026-10-07, updated 2026-10-08.
 
-This file is generic. Owner rules for one site (ranking, CTA wording, prices, disclosure, scheme) live in `sites/<site>/RULES.md` and override the defaults here. Example: `sites/example/RULES.md`.
+This file is generic. Owner rules for one site (ranking, CTA wording, prices, disclosure, scheme) live in `sites/<site>/RULES.md` and override the defaults here. Example: `sites/blog/RULES.md`.
 
 The site is published twice from one source: as a Google Apps Script web app and as a static site. Both get the same HTML. Every page is one HTML file with the CSS inlined, so the design must be small, plain and self-contained.
 
@@ -71,7 +71,7 @@ All of them work inside a freeform `page.html`. Snippets are in `prompts/page-ht
 - **After the article:** the CTA box, then "Related guides" (4 rows).
 - **Footer:** site name, tagline and disclosure; Topics (hubs + All guides); Site (Home, About, Sitemap, brand).
 
-### Shell in `hub` mode (example: sites/example-hub)
+### Shell in `hub` mode (example: sites/blog)
 
 - **Header:** logo (links to home) and one button: `navCta` if set, else the page's CTA. No nav, no menu.
 - **Page:** no breadcrumbs, no related guides. The meta line, "On this page" and the CTA box stay.
@@ -209,7 +209,7 @@ First read `sites/<site>/RULES.md` if it exists. The checklist in `AGENTS.md` ("
 
 ### A tool (calculator)
 
-1. `meta.json` with `"type": "tool"`. Follow `sites/example/pages/note-app-cost-calculator/`.
+1. `meta.json` with `"type": "tool"`. Follow `sites/blog/pages/note-app-cost-calculator/`.
 2. Put the inputs in `form.calc`, the output in `.result`, and a plain `<table>` with every number the script uses. Keep the script short and in the page. No user-agent checks, no redirects.
 3. Explain what the tool computes and its limits in text, so the page is useful without the script.
 

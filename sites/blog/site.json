@@ -1,0 +1,56 @@
+{
+  "mode": "hub",
+  "name": "The Study Desk",
+  "tagline": "The Study Desk compares note apps and study tools for students. It is run by the team behind Northwind Notes. Every product on this demo site is fictional.",
+  "language": "en",
+  "brand": {
+    "name": "Northwind Notes",
+    "url": "https://northwind.example/"
+  },
+  "author": {
+    "name": "",
+    "url": "",
+    "bio": ""
+  },
+  "disclosure": "",
+  "ownDomains": [
+    "northwind.example"
+  ],
+  "navCta": {
+    "label": "Best Note App for Study Groups",
+    "url": "https://northwind.example/"
+  },
+  "cta": {
+    "label": "Try Northwind Notes",
+    "url": "https://northwind.example/",
+    "text": "Northwind Notes gives a study group one shared notebook that everyone edits at the same time. It is free for one user.",
+    "sticky": true
+  },
+  "home": {
+    "title": "The Study Desk: Note Apps and Study Tools for Students, Compared",
+    "headline": "The best study tools for students, compared",
+    "intro": "The Study Desk compares note apps and study tools for students. We check every price and feature on the official page and date every check. This is a demo site: every product on it is fictional."
+  },
+  "static": {
+    "baseUrl": ""
+  },
+  "appsScript": {
+    "projectTitle": "blog",
+    "scriptId": "",
+    "deploymentId": "",
+    "timeZone": "Etc/UTC",
+    "urlStyle": "query",
+    "urlDomain": "viral"
+  },
+  "utm": {
+    "medium": "listicle",
+    "campaign": "blog"
+  },
+  "theme": {
+    "name": "default",
+    "accent": "#41603a",
+    "scheme": "light",
+    "fontsUrl": "https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+  },
+  "hubs": []
+}

@@ -1,0 +1,59 @@
+{
+  "mode": "single",
+  "name": "The Study Desk",
+  "tagline": "The Study Desk compares note apps and study tools for students. It is run by the team behind Northwind Notes. Every product on this demo site is fictional.",
+  "language": "en",
+  "brand": {
+    "name": "Northwind Notes",
+    "url": "https://northwind.example/"
+  },
+  "author": {
+    "name": "",
+    "url": "",
+    "bio": ""
+  },
+  "disclosure": "",
+  "ownDomains": [
+    "northwind.example"
+  ],
+  "footer": false,
+  "sitemap": false,
+  "navCta": {
+    "label": "Best Note App for Study Groups",
+    "url": "https://northwind.example/"
+  },
+  "cta": {
+    "label": "Try Northwind Notes",
+    "url": "https://northwind.example/",
+    "text": "One shared notebook for your whole study group. Free for one user.",
+    "sticky": true
+  },
+  "home": {
+    "title": "Top 3 Note Apps for Study Groups (2026)",
+    "headline": "Top 3 Note Apps for Study Groups (2026)",
+    "intro": "We compare Northwind Notes, Contoso Pad and Fabrikam Journal for students who take notes together. Every product here is fictional."
+  },
+  "static": {
+    "baseUrl": ""
+  },
+  "appsScript": {
+    "projectTitle": "single-page-blog",
+    "scriptId": "",
+    "deploymentId": "",
+    "timeZone": "Etc/UTC",
+    "urlStyle": "query",
+    "urlDomain": "viral"
+  },
+  "utm": {
+    "medium": "listicle",
+    "campaign": "single-page-blog"
+  },
+  "theme": {
+    "name": "default",
+    "accent": "#41603a",
+    "scheme": "light",
+    "fontsUrl": "https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap",
+    "serifFontsUrl": "https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500..700;1,6..72,400&display=swap"
+  },
+  "hubs": []
+}

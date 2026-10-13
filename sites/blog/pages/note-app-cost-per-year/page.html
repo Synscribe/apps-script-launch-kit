@@ -1,0 +1,46 @@
+<h1>Note app cost per year</h1>
+
+<div class="quick-answer"><strong>Quick answer</strong>Contoso Pad is free. Northwind Notes is free for one person and US$48 a year per person for a group. Fabrikam Journal costs US$30 a year. All four apps on this page are fictional: this is a demo of a freeform page.</div>
+
+<p>This page shows what a freeform page can do. A coding agent wrote it as plain HTML. It uses the site's built-in styles and loads one chart library from a CDN.</p>
+
+<h2>Yearly cost for one student</h2>
+<figure>
+  <canvas id="costChart" height="220" aria-label="Bar chart of yearly cost per app"></canvas>
+  <figcaption>Yearly cost in US dollars for one person. Demo data, checked 2026-10-07.</figcaption>
+</figure>
+
+<div class="grid">
+  <div class="stat"><b>US$0</b>Contoso Pad</div>
+  <div class="stat"><b>US$0</b>Northwind Notes, one user</div>
+  <div class="stat"><b>US$30</b>Fabrikam Journal</div>
+</div>
+
+<h2>The same data as a table</h2>
+<p>We keep the numbers in plain HTML too. Search engines and AI crawlers that do not run scripts can still read them.</p>
+<table>
+  <thead><tr><th>App</th><th>One user</th><th>Group, per person</th></tr></thead>
+  <tbody>
+    <tr><td>Contoso Pad</td><td>US$0</td><td>No group plan</td></tr>
+    <tr><td>Northwind Notes</td><td>US$0</td><td>US$48 a year</td></tr>
+    <tr><td>Fabrikam Journal</td><td>US$30 a year</td><td>US$30 a year</td></tr>
+    <tr><td>Tailspin Wiki</td><td>Not published</td><td>Not published</td></tr>
+  </tbody>
+</table>
+
+<h2>What to read next</h2>
+<p>See the full ranking in the best note taking apps for students. Sources: <a href="https://contoso.example/pricing">Contoso Pad pricing (fictional)</a>, <a href="{{utm:https://northwind.example/plans}}">Northwind Notes plans (fictional)</a>, <a href="https://fabrikam.example/pricing">Fabrikam Journal pricing (fictional)</a>.</p>
+
+<p>Northwind Notes is made by the owner of this demo site. You can <a href="{{brand_url}}">see Northwind Notes here</a>.</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+  new Chart(document.getElementById("costChart"), {
+    type: "bar",
+    data: {
+      labels: ["Contoso Pad", "Northwind Notes (1 user)", "Northwind Notes (group)", "Fabrikam Journal"],
+      datasets: [{ label: "US$ per year", data: [0, 0, 48, 30], backgroundColor: "#1f6feb" }]
+    },
+    options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+  });
+</script>

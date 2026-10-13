@@ -23,13 +23,13 @@ Then compare the two: does a page on Google's host rank faster or higher than th
   - **AI script:** `npm run generate` calls the Claude API. Claude searches the web, writes a research memo with sources, then writes the page.
   - **Coding agent:** open the repo in Claude Code (or any coding agent) and ask it to write a page. It follows [`AGENTS.md`](AGENTS.md).
 - **A light website shell.** In `site` mode: header and nav, home page, hub (topic) pages, guides index, About page, HTML sitemap, breadcrumbs, "On this page", footer, CTA box and related guides. In `hub` and `single` mode: a logo + CTA header and a short footer (see below). Every page gets a meta line (type, updated date, reading time; no author), an optional disclosure and an XML sitemap at `?page=sitemap.xml` (a single site can turn the footer and the sitemap off). See [`docs/design.md`](docs/design.md).
-- **A theme** in `themes/default/` (tokens, base, components) inlined into every page. Light and dark mode (`theme.scheme`: `auto`, or force `light` / `dark`). One accent colour per site in `site.json`. A dev-only style guide at `/styleguide/`.
-- **Site rules.** Owner rules for one site (who ranks #1, CTA wording, prices, disclosure) go in `sites/<site>/RULES.md`. They override the generic [`prompts/writing-rules.md`](prompts/writing-rules.md). Example: [`sites/example/RULES.md`](sites/example/RULES.md).
+- **A theme.** `themes/default/` (tokens, base, components, layouts) is inlined into every page. New sites also get `templates/theme-warm.css` as `sites/<site>/theme.css`: the warm paper look of the sites we launched (Instrument Sans, green accent, light only). Change the accent for your brand, or clone a brand's style (below). Light and dark mode via `theme.scheme` (`auto`, or force `light` / `dark`). A dev-only style guide at `/styleguide/`.
+- **Site rules.** Owner rules for one site (who ranks #1, CTA wording, prices, disclosure) go in `sites/<site>/RULES.md`. They override the generic [`prompts/writing-rules.md`](prompts/writing-rules.md). Example: [`sites/blog/RULES.md`](sites/blog/RULES.md).
 - **Freeform pages:** each page is plain HTML (`pages/<slug>/page.html` + `meta.json`). Add tables, charts or calculators. Ranked lists use the same HTML with built-in item styles.
 - **Three site modes** (`"mode"` in `site.json`):
-  - `site`: a full small website with nav, topics (hubs), breadcrumbs and related links.
-  - `hub`: a home page that lists every page. Each page has a logo + CTA header (no nav). The footer links home (site name), lists every other page and has a right-aligned "Sitemap" link to `?page=sitemap.xml`, so Google can discover the whole site from any page. No topic pages, guides index, About or HTML sitemap page.
+  - `hub` (default): a home page that lists every page. Each page has a logo + CTA header (no nav). The footer links home (site name), lists every other page and has a right-aligned "Sitemap" link to `?page=sitemap.xml`, so Google can discover the whole site from any page. No topic pages, guides index, About or HTML sitemap page.
   - `single`: one page is the whole site, at the bare `/exec` URL. Make as many single sites as you like, each with its own `/exec` URL.
+  - `site`: a full small website with nav, topics (hubs), breadcrumbs, an About page and related links. More navigation than most tests need; `hub` is the default.
 - **Three page templates** in `templates/`:
   - `top-n.html`: winner card for the #1 pick with a strong CTA, at-a-glance table, compact entries for the rest, inline CTA band, "why we picked it", FAQ, closing CTA. Optional sticky bottom CTA bar on phones (`cta.sticky`).
   - `landing.html` (`"layout": "landing"` in `meta.json`): a product landing page. Hero with a CSS-only mock product window, problem → outcome strip, feature grid, three steps, "vs by hand / other tools" table, use cases, FAQ, final CTA. Logo + CTA header, no meta line or rail.
@@ -87,12 +87,20 @@ One deployment answers on two URL forms. Both serve the same page to everyone, s
 
 ```bash
 npm install
-npm run dev -- --site example
+npm run dev -- --site blog
 ```
 
-Open http://localhost:4321/. You see the demo site with fictional products, including a page with a live chart. Click "apps script" in the yellow bar to see the Apps Script version.
+Open http://localhost:4321/. You see a demo blog with fictional products, in the same style as the sites we launched. Click "apps script" in the yellow bar to see the Apps Script version.
 
-Two more demo sites show the other modes: `--site example-hub` and `--site example-single`.
+### Example sites
+
+| Folder | Mode and layout | What it shows |
+|---|---|---|
+| `sites/blog` | `hub`, `guide` pages | A small blog like the ones we launched: a home page that lists every page, a Top N page with a winner card, a cost calculator and a chart page |
+| `sites/single-page-blog` | `single`, `article` layout, `footer: false`, `sitemap: false` | One editorial article with ranked picks, and nothing else |
+| `sites/single-page-landing` | `single`, `landing` layout | One product landing page |
+
+All three use the warm paper theme (`theme.css`, from `templates/theme-warm.css`), a header with one CTA button, no disclosure banner and a `RULES.md`. Every product in them is fictional (Northwind Notes and friends, on `.example` domains).
 
 ## Local preview (`npm run dev`)
 
@@ -118,7 +126,7 @@ You need these before your first deploy.
 | 1 | **Use a separate Google account.** A new consumer Gmail account is best. Do not use your main company Workspace account. | Google can suspend scripts or accounts for abuse. Keep that risk away from your email and Drive. A Workspace admin may also block public web apps. |
 | 2 | Sign in to that account and open https://script.google.com/home/usersettings. Turn **Google Apps Script API** to **On**. | clasp, Google's command-line tool for Apps Script, uses this API to upload and deploy. It is off by default. |
 | 3 | Run `npm run as:login`. A browser opens. Sign in with the separate account and allow access. | This saves a login token to `~/.clasprc.json` on your computer. Never commit that file. |
-| 4 | Create a site: `npm run new-site -- --name mysite --mode site\|hub\|single`, then edit `sites/mysite/site.json` (name, brand, CTA, ownDomains, theme). To reuse another site's setup: add `--from <site>` (copies `site.json`, `theme.css` and `RULES.md`, no pages, clears the Apps Script IDs). Do not `cp -r` a site: that copies its live `scriptId` and `deploymentId`. | Each folder in `sites/` is one Apps Script project and one static site. |
+| 4 | Create a site: `npm run new-site -- --name mysite [--mode hub\|single\|site]` (default `hub`), then edit `sites/mysite/site.json` (name, brand, CTA, ownDomains, theme). To reuse another site's setup: add `--from <site>` (copies `site.json`, `theme.css` and `RULES.md`, no pages, clears the Apps Script IDs). Do not `cp -r` a site: that copies its live `scriptId` and `deploymentId`. | Each folder in `sites/` is one Apps Script project and one static site. |
 | 5 | Run `npm run as:init -- --site mysite`. | This creates an empty Apps Script project in the account and saves its `scriptId` to `site.json`. |
 | 6 | Run `npm run as:deploy -- --site mysite`. | This builds the pages, uploads them and publishes the web app as "Execute as: Me", "Who has access: Anyone". The `deploymentId` is saved to `site.json`. |
 | 7 | Run `npm run as:urls -- --site mysite` and open a URL in a **private window**. | The page must load without a Google sign-in. If it asks you to sign in, check step 1 (Workspace limits). |
@@ -225,7 +233,7 @@ Use `track/results-template.csv`: one row per keyword per day.
 | `npm run generate -- --site <s> --slug <slug> [--model <id>] [--force]` | AI script: research and write a draft page. `--force` overwrites an existing page folder |
 | `npm run validate -- --site <s>` | Check every page |
 | `npm run build -- --site <s> [--drafts]` | Build both targets into `dist/<s>/` |
-| `npm run new-site -- --name <s> --mode site\|hub\|single [--from <site>] [--layout landing\|article\|guide] [--slug <slug>]` | Create a new site folder. `--from` copies another site's `site.json` (IDs cleared, new UTM campaign), `theme.css` and `RULES.md`, no pages. `--layout` also writes a starter page from `templates/landing.html` or `templates/blog-article.html` (`guide`: `templates/top-n.html`) with the layout set in `meta.json` |
+| `npm run new-site -- --name <s> [--mode hub\|single\|site] [--from <site>] [--layout landing\|article\|guide] [--slug <slug>]` | Create a new site folder (default mode `hub`, warm paper theme). `--from` copies another site's `site.json` (IDs cleared, new UTM campaign), `theme.css` and `RULES.md`, no pages. `--layout` also writes a starter page from `templates/landing.html` or `templates/blog-article.html` (`guide`: `templates/top-n.html`) with the layout set in `meta.json` |
 | `npm run brand:extract -- --url <url> [--site <s>] [--out <dir>]` | Read a website's colours, fonts, radii and buttons (real browser via `agent-browser` if installed, else fetched CSS). See `.claude/skills/clone-brand-style/SKILL.md` |
 | `npm run as:login` | Log in to Google for clasp |
 | `npm run as:init -- --site <s>` | Create the Apps Script project |
@@ -242,7 +250,7 @@ prompts/writing-rules.md  truth rules (hard), ranking/disclosure defaults, style
 prompts/page-html.md      how to write page.html (components, placeholders, charts)
 docs/design.md            design tokens, components, site structure, how to add a page
 themes/default/           tokens.css, base.css, components.css, layouts.css (inlined into every page)
-templates/                top-n.html (Top N comparison), landing.html (product landing page), blog-article.html (editorial article)
+templates/                top-n.html (Top N comparison), landing.html (product landing page), blog-article.html (editorial article), theme-warm.css (the default site theme)
 .claude/skills/           clone-brand-style: clone a website's visual style into a site theme
 schema/                   JSON schemas for meta, brief and site files
 sites/<site>/

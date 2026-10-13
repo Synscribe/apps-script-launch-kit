@@ -1,0 +1,73 @@
+<h1>Note app cost calculator</h1>
+
+<div class="quick-answer"><strong>Quick answer</strong>For one person, Contoso Pad and Northwind Notes cost nothing. For a group, Fabrikam Journal (US$30 a person a year) is cheaper than Northwind Notes (US$48 a person a year). Enter your numbers below to see the total. All four apps are fictional: this is a demo of a tool page.</div>
+
+<p>This page shows what a <strong>tool</strong> page looks like in this kit. The calculator runs in the browser with a short script. The prices it uses are in the table under it, so a crawler that does not run scripts still gets the facts.</p>
+
+<h2>Calculate your total</h2>
+<form class="calc" id="calc" onsubmit="return false">
+  <div class="fields">
+    <div class="field"><label for="people">People</label><input id="people" type="number" min="1" max="500" value="3"></div>
+    <div class="field"><label for="years">Years</label><input id="years" type="number" min="1" max="10" value="2"></div>
+    <div class="field"><label for="app">App</label><select id="app">
+      <option value="contoso">Contoso Pad</option>
+      <option value="northwind" selected>Northwind Notes</option>
+      <option value="fabrikam">Fabrikam Journal</option>
+    </select></div>
+  </div>
+  <div class="result"><output id="total" for="people years app">US$288</output><p class="meta" id="note">3 people × US$48 × 2 years. Demo numbers, checked 2026-10-07.</p></div>
+</form>
+
+<h2>The prices the calculator uses</h2>
+<p>These are the published prices for one person per year, as checked on 2026-10-07. They are fictional demo prices.</p>
+<table>
+  <thead><tr><th>App</th><th>One person</th><th>Group, per person</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Contoso Pad</td><td>US$0</td><td>No group plan</td><td>Free for students. The calculator treats a group as several free single users.</td></tr>
+    <tr class="own"><td>Northwind Notes <span class="badge">Our product</span></td><td>US$0</td><td>US$48 a year</td><td>Free for one user. Groups pay US$4 per user per month.</td></tr>
+    <tr><td>Fabrikam Journal</td><td>US$30 a year</td><td>US$30 a year</td><td>Same price for one person and for groups.</td></tr>
+    <tr><td>Tailspin Wiki</td><td>Not published</td><td>Not published</td><td>Left out of the calculator. We do not guess prices.</td></tr>
+  </tbody>
+</table>
+
+<h2>How the calculator works</h2>
+<ol class="steps">
+  <li><strong>Pick the number of people.</strong> One person uses the single-user price. Two or more use the group price per person.</li>
+  <li><strong>Pick the number of years.</strong> The calculator multiplies the yearly price by the years. It does not apply discounts, because none are published.</li>
+  <li><strong>Read the total.</strong> The total is people × price per person × years. The note under it shows the sum.</li>
+</ol>
+
+<div class="callout"><strong>Limits</strong>The calculator does not include taxes, education discounts or price changes after 2026-10-07. Check the official pricing page before you pay.</div>
+
+<h2>What to read next</h2>
+<p>See the yearly cost chart in note app cost per year, or the full ranking in the best note taking apps for students. All pages about these apps are in the Note apps topic.</p>
+
+<h2>FAQ</h2>
+<div class="faq">
+  <details><summary>Why does Contoso Pad show US$0 for a group?</summary><p>Contoso Pad has no group plan. Each person uses the free single-user plan, so the total stays at zero.</p></details>
+  <details><summary>Where do the prices come from?</summary><p>From the fictional pricing pages linked on the cost per year page. On a real site, link the official pricing page for every product.</p></details>
+  <details><summary>Can I copy this calculator for my own site?</summary><p>Yes. The form uses the <code>.calc</code> classes from the theme. Change the price table in the script and in the HTML table so both stay the same.</p></details>
+</div>
+
+<p class="src">Sources: <a href="https://contoso.example/pricing">Contoso Pad pricing (fictional)</a> · <a href="{{utm:https://northwind.example/plans}}">Northwind Notes plans (fictional)</a> · <a href="https://fabrikam.example/pricing">Fabrikam Journal pricing (fictional)</a>. Northwind Notes is made by the owner of this demo site: <a href="{{brand_url}}">see Northwind Notes</a>.</p>
+
+<script>
+(function () {
+  // Prices per person per year. Keep these the same as the table above.
+  var PRICES = { contoso: { one: 0, group: 0 }, northwind: { one: 0, group: 48 }, fabrikam: { one: 30, group: 30 } };
+  var NAMES = { contoso: "Contoso Pad", northwind: "Northwind Notes", fabrikam: "Fabrikam Journal" };
+  var form = document.getElementById("calc");
+  function update() {
+    var people = Math.max(1, Number(document.getElementById("people").value) || 1);
+    var years = Math.max(1, Number(document.getElementById("years").value) || 1);
+    var app = document.getElementById("app").value;
+    var price = people > 1 ? PRICES[app].group : PRICES[app].one;
+    var total = people * price * years;
+    document.getElementById("total").textContent = "US$" + total.toLocaleString("en-US");
+    document.getElementById("note").textContent = people + (people > 1 ? " people" : " person") + " × US$" + price + " × " + years + (years > 1 ? " years" : " year") + " for " + NAMES[app] + ". Demo numbers, checked 2026-10-07.";
+  }
+  form.addEventListener("input", update);
+  form.addEventListener("change", update);
+  update();
+})();
+</script>

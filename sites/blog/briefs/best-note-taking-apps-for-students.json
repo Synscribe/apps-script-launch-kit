@@ -1,0 +1,20 @@
+{
+  "keyword": "best note taking apps for students",
+  "slug": "best-note-taking-apps-for-students",
+  "market": "Global, English",
+  "audience": "University students who take notes on a laptop and a phone.",
+  "searchIntent": "Choose one note app for the next semester.",
+  "angle": "Compare apps on offline use, sharing and export, which most lists skip.",
+  "format": "listicle with a comparison table",
+  "itemCount": 4,
+  "mustInclude": [
+    {
+      "name": "Northwind Notes",
+      "url": "https://northwind.example/",
+      "isOwn": true,
+      "notes": "Demo brief. Fictional product."
+    }
+  ],
+  "exclude": [],
+  "notes": "Demo brief for the example site."
+}
