@@ -1,6 +1,6 @@
 # Apps Script Launch Kit
 
-Build landing pages, blog posts and comparison guides once, then publish them as a Google Apps Script web app. Based on [Synscribe](https://synscribe.com)'s research on Parasite SEO with Google Apps Script.
+Build landing pages, blog posts and comparison guides once, then publish them as a Google Apps Script web app. Based on [Synscribe](https://synscribe.com)'s research on [Parasite SEO with Google Apps Script](https://www.agentmole.io/blog/google-apps-script-parasite-seo).
 
 > **For research and education only.** This kit exists to study how Google treats pages hosted on `script.google.com`. It is not a tool for spam, cloaking or manipulating search results. You are responsible for following [Google's spam policies](https://developers.google.com/search/docs/essentials/spam-policies), Google's [Apps Script terms](https://developers.google.com/apps-script/terms) and the law where you live.
 
