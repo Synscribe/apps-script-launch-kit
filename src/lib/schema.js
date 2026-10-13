@@ -57,6 +57,7 @@ export const SiteSchema = z.object({
     projectTitle: z.string(),
     scriptId: z.string(),
     deploymentId: z.string(),
+    urlDomain: z.string().regex(/^[A-Za-z0-9.-]*$/, "letters, digits, dots and hyphens only").default("viral").describe("The <x> in https://script.google.com/a/<x>/macros/s/<deploymentId>/exec. Every public Apps Script URL the kit writes (links between pages, JSON-LD, the XML sitemap, as:urls) uses this form, because it is the form Google indexes. Any value works; both forms serve the same page. Default \"viral\". Set \"\" to use the short form https://script.google.com/macros/s/<deploymentId>/exec. Keep it the same once pages are indexed"),
     timeZone: z.string(),
     urlStyle: z.enum(["query", "path"]),
   }),

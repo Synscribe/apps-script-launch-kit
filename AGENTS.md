@@ -126,16 +126,20 @@ Only when the user asks in this conversation ("deploy and give me the URLs"):
 1. Read the site's `RULES.md` deploy section, if any.
 2. Check the Google login: `npx clasp show-authorized-user` (or `node_modules/.bin/clasp show-authorized-user`). Deploy from the account that owns the site's `scriptId`. Use `--user <name>` for a named login.
 3. `npm run validate -- --site <site>`, then `npm run as:deploy -- --site <site>`. It builds, uploads and updates the same deployment, so the `/exec` URL does not change. Only `"status": "approved"` pages go live.
-4. `npm run as:urls -- --site <site>`. It prints the home URL, every page URL, the XML sitemap URL and any skipped drafts.
+4. `npm run as:urls -- --site <site>`. It prints the home URL, every page URL and the XML sitemap URL (all in the `/a/<urlDomain>/` form Google indexes), the original short form and any skipped drafts.
 5. Deploy means **Apps Script only**, unless `static.baseUrl` is set in `site.json` or the user asks for the static site too.
-6. Report: the `/exec` home URL, each page URL, `…/exec?page=sitemap.xml` and the drafts that are not live.
+6. Report: the `/exec` home URL, each page URL, `…/exec?page=sitemap.xml` (all copied from `as:urls`, in the `/a/<urlDomain>/` form) and the drafts that are not live. You may add the original short form on one line, labelled as such.
 
-URL facts:
+URL facts (details: README, "Public URLs and what Google indexes"):
 
-- `https://script.google.com/macros/s/<deploymentId>/exec` is public. Share only these.
+- **Report the URLs exactly as `npm run as:urls` prints them.** They use the form Google indexes: `https://script.google.com/a/<urlDomain>/macros/s/<deploymentId>/exec` (`urlDomain` defaults to `"viral"`). Never rewrite them to the short form.
+- `as:urls` also prints the "Original short form" (`https://script.google.com/macros/s/<deploymentId>/exec`). It serves the same page, but signed-in Google users can get an error on it and the kit does not link to it. Mention it only as a reference.
+- clasp output and the Apps Script editor show the short form. Do not report those URLs; run `as:urls`.
+- Do not change `appsScript.urlDomain` on a deployed site unless the user asks: Google would see a second URL for every page. After a change, redeploy.
 - A `/dev` URL (printed by `as:push`) works only for the signed-in owner. Never share it.
 - `?page=sitemap.xml` answers with a one-time 302 to `script.googleusercontent.com`. That is expected. Link and submit the stable `/exec?page=sitemap.xml` URL.
 - An unknown `?page=` shows the home page.
+- The Apps Script page has no canonical tag or meta description (Google's wrapper page cannot take them). Do not try to add them.
 
 ## Hard rules
 

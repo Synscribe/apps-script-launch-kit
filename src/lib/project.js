@@ -123,7 +123,17 @@ export function loadBrief(site, slug) {
   return parsed.data;
 }
 
+// The public /exec URL the kit writes everywhere. With appsScript.urlDomain set (default "viral") it is
+// the /a/<urlDomain>/ form, which is the form Google indexes. Both forms serve the same page.
 export function execUrl(siteConfig) {
+  const id = siteConfig.appsScript.deploymentId;
+  if (!id) return "";
+  const domain = siteConfig.appsScript.urlDomain;
+  return domain ? `https://script.google.com/a/${domain}/macros/s/${id}/exec` : shortExecUrl(siteConfig);
+}
+
+// The original short form that clasp and the Apps Script editor show. Same page.
+export function shortExecUrl(siteConfig) {
   const id = siteConfig.appsScript.deploymentId;
   return id ? `https://script.google.com/macros/s/${id}/exec` : "";
 }

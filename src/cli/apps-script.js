@@ -8,7 +8,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
-import { args, siteName, loadSite, saveSite, sitePaths, loadPages, fail, ROOT, execUrl } from "../lib/project.js";
+import { args, siteName, loadSite, saveSite, sitePaths, loadPages, fail, ROOT, execUrl, shortExecUrl } from "../lib/project.js";
 import { build, sitePagesFor } from "../lib/build.js";
 import { href } from "../lib/render.js";
 
@@ -96,7 +96,7 @@ function deploy() {
   const r = push();
   const out = clasp(["--json", "update-deployment", config.appsScript.deploymentId, "--description", description], r.asDir, { capture: true });
   const { versionNumber } = lastJson(out);
-  console.log(`\n✔ Published version ${versionNumber}. PUBLIC URLs (share these; same as before):`);
+  console.log(`\n✔ Published version ${versionNumber}. PUBLIC URLs (share these):`);
   urls();
 }
 
@@ -107,7 +107,9 @@ function urls() {
   // List exactly the pages this site serves (depends on its mode).
   const { entries, pages, skipped } = sitePagesFor(site, { includeDrafts: Boolean(flags.drafts) });
   const ctx = { site: config, target: "apps-script", pages: [], slug: "" };
+  const short = shortExecUrl(config);
   console.log(`  mode: ${config.mode}`);
+  if (base !== short) console.log(`  url form: /a/${config.appsScript.urlDomain}/ (the form Google indexes; site.json appsScript.urlDomain)`);
   for (const e of entries) console.log(`  ${e.key || "home"}: ${href(ctx, e.key)}`);
   // The XML sitemap. Opening it gives a one-time 302 to script.googleusercontent.com; that is normal.
   // Always share and submit this stable /exec URL, never the redirect target.
@@ -117,6 +119,7 @@ function urls() {
     const drafts = loadPages(site).filter((p) => !p.error && p.meta.status !== "approved").map((p) => p.slug);
     console.log(`\n⚠ ${skipped} draft page(s) are NOT live (set "status": "approved" and deploy again): ${drafts.join(", ")}`);
   }
+  if (base !== short) console.log(`\nOriginal short form (same pages, not used in links or the sitemap): ${short}[?page=<slug>]`);
   console.log(`\n${pages.length} page(s) listed. These /exec URLs are public. Never share a /dev URL: it works only for the owner.`);
   console.log(`Open one in a private window to check that anyone can see it without signing in.`);
 }

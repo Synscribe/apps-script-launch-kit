@@ -10,7 +10,7 @@
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
-import { args, siteName, ROOT } from "../lib/project.js";
+import { args, siteName, ROOT, execUrl } from "../lib/project.js";
 import { sitePagesFor, sitemapXml } from "../lib/build.js";
 import { renderStyleguide } from "../lib/styleguide.js";
 import { renderPage } from "../lib/render.js";
@@ -29,7 +29,6 @@ function templatePage(name) {
 const flags = args();
 const site = siteName(flags);
 const port = Number(flags.port || 4321);
-const FAKE = "https://script.google.com/macros/s/PREVIEW/exec";
 
 function bar(url, target, drafts) {
   const theme = url.searchParams.get("theme") || "";
@@ -47,6 +46,8 @@ http.createServer((req, res) => {
     const asMode = url.pathname.startsWith("/apps-script");
     const target = asMode ? "apps-script" : "static";
     const { site: config, entries, pages } = sitePagesFor(site, { includeDrafts: true, preview: true });
+    // The preview build uses deploymentId "PREVIEW"; links to that /exec URL are rewritten to stay local.
+    const FAKE = execUrl(config);
     const key = asMode
       ? url.searchParams.get("page") || url.pathname.replace(/^\/apps-script\/?/, "").replace(/\/$/, "")
       : url.pathname.replace(/^\/|\/$/g, "");

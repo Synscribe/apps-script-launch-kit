@@ -68,7 +68,7 @@ if (from) {
     cta: { label: `Visit ${brand}`, url: brandUrl, text: `One sentence about what ${brand} does.`, sticky: false },
     home: { title: "Home page title", headline: "Home page headline", intro: "Two short sentences about the site." },
     static: { baseUrl: "" },
-    appsScript: { projectTitle: name, scriptId: "", deploymentId: "", timeZone: "Etc/UTC", urlStyle: "query" },
+    appsScript: { projectTitle: name, scriptId: "", deploymentId: "", urlDomain: "viral", timeZone: "Etc/UTC", urlStyle: "query" },
     utm: { medium: "listicle", campaign: name },
     theme: { name: "default", accent: "#2563eb", scheme: "auto", fontsUrl: "" },
     hubs: [],

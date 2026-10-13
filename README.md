@@ -10,7 +10,7 @@ Pages hosted as Google Apps Script web apps (`script.google.com/macros/s/…/exe
 
 This kit lets you test the question honestly. Build a small site once and publish it in two places:
 
-1. **Google Apps Script** (`script.google.com/macros/s/…/exec`). The page is a web app on Google's own domain.
+1. **Google Apps Script** (`script.google.com/a/viral/macros/s/…/exec`, the URL form Google indexes). The page is a web app on Google's own domain.
 2. **Your own domain**, as a normal static site.
 
 Then compare the two: does a page on Google's host rank faster or higher than the same page on a domain you own? **This kit does the honest version only.** Every visitor and every crawler gets the same page.
@@ -62,13 +62,26 @@ One Apps Script project serves the whole site. The router in `Code.js` reads `?p
 - `?page=sitemap.xml` returns the XML sitemap (every mode, unless `site.json` has `"sitemap": false`). Apps Script answers it with a one-time 302 redirect to `script.googleusercontent.com`. That is expected. Always link and submit the stable `/exec?page=sitemap.xml` URL, never the redirect target.
 - `site` mode only: `?page=guides`, `?page=about`, `?page=sitemap` (HTML) and `?page=<hub-slug>` are shell pages.
 
-### Public URL vs private test URL
+### Public URLs and what Google indexes
 
-| URL | Who can open it |
-|---|---|
-| `https://script.google.com/macros/s/<deploymentId>/exec` | **Everyone, and Google.** Share and link this one. `npm run as:urls` prints it. |
-| `https://script.google.com/macros/s/<head-deploymentId>/dev` | Only the owner, signed in. Others get "Sorry, unable to open the file" and Google gets a 404. Never share it. |
-| `https://script.google.com/d/<scriptId>/edit` | The code editor. Owner only. |
+One deployment answers on two URL forms. Both serve the same page to everyone, signed out.
+
+| URL | Who can open it | Used by the kit |
+|---|---|---|
+| `https://script.google.com/a/viral/macros/s/<deploymentId>/exec` | **Everyone, and Google.** This is the form Google indexes. | **Yes.** Links between pages, JSON-LD, the XML sitemap and `npm run as:urls` all use it. |
+| `https://script.google.com/macros/s/<deploymentId>/exec` | Everyone signed out. A visitor signed in to Google can get "Sorry, unable to open the file at present." | No. `as:urls` prints it once as "Original short form", for reference. clasp and the Apps Script editor show this form. |
+| `https://script.google.com/macros/s/<head-deploymentId>/dev` | Only the owner, signed in. Others get "Sorry, unable to open the file" and Google gets a 404. | Never share it. `as:push` prints it. |
+| `https://script.google.com/d/<scriptId>/edit` | The code editor. Owner only. | Never share it. |
+
+**What we saw (checked 2026-10-13):**
+
+- **Google indexes the `/a/<x>/macros/s/…/exec` form**, not the short form that clasp prints. The `/a/<x>/` part normally names a Google Workspace domain. For a public web app any value works: `viral`, `synscribe.com` and random letters all returned the same page.
+- **The short form can fail for signed-in visitors.** A visitor signed in to Google (especially with more than one account) can get an error page on the short form.
+- **The page sits in a frame.** The `/exec` URL returns a Google wrapper page with your `<title>` (from `setTitle`). Your HTML loads inside a sandboxed iframe from `*.googleusercontent.com`. Google renders JavaScript, so it indexes the text. The wrapper has no meta description and no canonical tag, and the kit cannot add them.
+- **The sitemap redirects once.** `?page=sitemap.xml` answers with a 302 to `script.googleusercontent.com/macros/echo?…`. Always link and submit the stable `/exec?page=sitemap.xml` URL, never the redirect target.
+- **`script.google.com` has no robots.txt** (it returns a "Page not found" page), and Search Console cannot verify it. Google finds the pages through links and the sitemap URL.
+
+**How the kit handles it:** `appsScript.urlDomain` in `site.json` (default `"viral"`) sets the `<x>`. The kit writes the `/a/<urlDomain>/` form everywhere, so Google sees one URL per page. Set `"urlDomain": ""` to use the short form instead. Pick one value and keep it: changing it after Google indexes the pages creates a second URL for every page. After a change, run `npm run as:deploy` again so the live links and sitemap update.
 
 ## Quick start (5 minutes, no Google account needed)
 
@@ -185,7 +198,7 @@ npx netlify deploy --dir dist/mysite/static --prod
 Use `track/results-template.csv`: one row per keyword per day.
 
 - **Rank.** Track the keyword with any rank tracker. Record the position of the Apps Script URL and of the static URL.
-- **Index.** `site:script.google.com/macros/s/<deploymentId>` and `site:yourdomain.com/<slug>` in Google.
+- **Index.** `site:script.google.com/a/viral/macros/s/<deploymentId>` (or search the deploymentId alone, which finds both URL forms) and `site:yourdomain.com/<slug>` in Google.
 - **Clicks.** Links to your product carry `utm_source=apps-script` or `utm_source=static`, `utm_medium=listicle` and `utm_content=<slug>` (on a single site the page is the home page, so it is `home`; shell buttons use their own value, such as `nav`, `footer` or `<slug>-box`). Compare them in your analytics. The validator makes sure no link to your own domains (`ownDomains` in `site.json`) skips the tags.
 - **AI answers.** Ask ChatGPT, Perplexity and Google AI Mode the keyword once a week. Record which URL they cite, if any. Expect the Apps Script version to do badly outside Google: its text loads with JavaScript, and most AI crawlers do not run JavaScript.
 
@@ -201,6 +214,7 @@ Use `track/results-template.csv`: one row per keyword per day.
 | Banner | Every visitor sees "This application was created by a Google Apps Script user". |
 | Status codes | Every URL returns 200. An unknown `?page=` shows the home page. |
 | Search Console | You cannot verify `script.google.com`. |
+| Canonical tag | Not possible on the wrapper page. Keep every link on one URL form (`urlDomain`) instead. |
 
 ## Commands
 
@@ -217,7 +231,7 @@ Use `track/results-template.csv`: one row per keyword per day.
 | `npm run as:init -- --site <s>` | Create the Apps Script project |
 | `npm run as:push -- --site <s> [--drafts]` | Upload files. Prints the private `/dev` test URL (owner only) and how many drafts it skipped |
 | `npm run as:deploy -- --site <s> [--drafts]` | Upload and publish. Same `/exec` URL every time. Only approved pages unless `--drafts` |
-| `npm run as:urls -- --site <s> [--drafts]` | Print the public `/exec` URLs, the XML sitemap URL (or "off") and any drafts that are not live |
+| `npm run as:urls -- --site <s> [--drafts]` | Print the public `/exec` URLs in the form Google indexes (`/a/<urlDomain>/`), the XML sitemap URL (or "off"), the original short form for reference and any drafts that are not live |
 | `npm run schema` | Rewrite `schema/*.json` from `src/lib/schema.js` |
 
 ## Repo layout
@@ -232,7 +246,7 @@ templates/                top-n.html (Top N comparison), landing.html (product l
 .claude/skills/           clone-brand-style: clone a website's visual style into a site theme
 schema/                   JSON schemas for meta, brief and site files
 sites/<site>/
-  site.json               mode, name, brand, author (site mode only), disclosure (optional), ownDomains, forbid (optional), cta (+ sticky), navCta (optional), footer / sitemap (optional, single sites), home copy, hubs (site mode), theme (accent, scheme, fontsUrl), static.baseUrl, Apps Script IDs, utm
+  site.json               mode, name, brand, author (site mode only), disclosure (optional), ownDomains, forbid (optional), cta (+ sticky), navCta (optional), footer / sitemap (optional, single sites), home copy, hubs (site mode), theme (accent, scheme, fontsUrl), static.baseUrl, Apps Script IDs and urlDomain (default "viral"), utm
   RULES.md                optional owner rules for this site; they override prompts/writing-rules.md
   about.html              the About page (site mode only)
   theme.css               optional CSS overrides for this site (brand colours, fonts, radii)
