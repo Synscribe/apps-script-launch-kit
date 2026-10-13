@@ -1,4 +1,5 @@
-// npm run new-site -- --name <site> [--mode site|hub|single] [--brand "Name"] [--brand-url https://…]
+// npm run new-site -- --name <site> [--mode hub|single|site] [--brand "Name"] [--brand-url https://…]
+//   Default mode: hub. A new site starts with the warm paper theme (templates/theme-warm.css).
 // npm run new-site -- --name <site> [--mode site|hub|single] --from <existing-site>
 // npm run new-site -- --name <site> --mode single --layout landing|article [--slug <slug>]
 //   --layout also writes a starter page (pages/<slug>/) from templates/landing.html or
@@ -21,7 +22,7 @@ const name = slugify(flags.name);
 const paths = sitePaths(name);
 if (fs.existsSync(paths.dir)) fail(`sites/${name}/ already exists.`);
 const from = flags.from && flags.from !== true ? flags.from : "";
-if (flags.from === true) fail("Pass the site to copy, e.g. --from example.");
+if (flags.from === true) fail("Pass the site to copy, e.g. --from blog.");
 if (from && !fs.existsSync(sitePaths(from).config)) fail(`No site to copy at sites/${from}/site.json.`);
 const layout = flags.layout && flags.layout !== true ? flags.layout : "";
 if (flags.layout === true || (layout && !LAYOUT_TEMPLATES[layout])) fail('--layout must be "landing", "article" or "guide".');
@@ -51,7 +52,7 @@ if (from) {
     }
   }
 } else {
-  mode = flags.mode && flags.mode !== true ? flags.mode : "site";
+  mode = flags.mode && flags.mode !== true ? flags.mode : "hub";
   if (!["site", "hub", "single"].includes(mode)) fail('--mode must be "site", "hub" or "single".');
   const brand = flags.brand && flags.brand !== true ? flags.brand : "Your product";
   const brandUrl = flags["brand-url"] && flags["brand-url"] !== true ? flags["brand-url"] : "https://example.com/";
@@ -65,17 +66,20 @@ if (from) {
     // Optional. Leave "" for no disclosure line. Fill it if the site's rules want one.
     disclosure: "",
     ownDomains: (() => { try { const h = new URL(brandUrl).hostname.replace(/^www\./, ""); return [h, `www.${h}`]; } catch { return []; } })(),
-    cta: { label: `Visit ${brand}`, url: brandUrl, text: `One sentence about what ${brand} does.`, sticky: false },
+    navCta: { label: `Visit ${brand}`, url: brandUrl },
+    cta: { label: `Visit ${brand}`, url: brandUrl, text: `One sentence about what ${brand} does.`, sticky: true },
     home: { title: "Home page title", headline: "Home page headline", intro: "Two short sentences about the site." },
     static: { baseUrl: "" },
     appsScript: { projectTitle: name, scriptId: "", deploymentId: "", urlDomain: "viral", timeZone: "Etc/UTC", urlStyle: "query" },
     utm: { medium: "listicle", campaign: name },
-    theme: { name: "default", accent: "#2563eb", scheme: "auto", fontsUrl: "" },
+    // The look of the sites we launched: warm paper theme, Instrument Sans, light only.
+    theme: { name: "default", accent: "#41603a", scheme: "light", fontsUrl: "https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap", serifFontsUrl: "https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500..700;1,6..72,400&display=swap" },
     hubs: [],
   };
 }
 
 writeJson(paths.config, config);
+if (!from && !fs.existsSync(path.join(paths.dir, "theme.css"))) fs.copyFileSync(path.join(ROOT, "templates", "theme-warm.css"), path.join(paths.dir, "theme.css"));
 for (const d of [paths.pages, paths.briefs, paths.research]) fs.mkdirSync(d, { recursive: true });
 if (mode === "site" && !fs.existsSync(path.join(paths.dir, "about.html"))) fs.writeFileSync(path.join(paths.dir, "about.html"), "<h1>About</h1>\n<p>Who writes these pages and how you check facts.</p>\n");
 

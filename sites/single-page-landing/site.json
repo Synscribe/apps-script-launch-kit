@@ -1,0 +1,57 @@
+{
+  "mode": "single",
+  "name": "Northwind Notes",
+  "tagline": "Northwind Notes is a shared note app for study groups. This is a demo landing page: the product is fictional.",
+  "language": "en",
+  "brand": {
+    "name": "Northwind Notes",
+    "url": "https://northwind.example/"
+  },
+  "author": {
+    "name": "",
+    "url": "",
+    "bio": ""
+  },
+  "disclosure": "",
+  "ownDomains": [
+    "northwind.example"
+  ],
+  "navCta": {
+    "label": "Try Northwind Notes",
+    "url": "https://northwind.example/"
+  },
+  "cta": {
+    "label": "Try Northwind Notes",
+    "url": "https://northwind.example/",
+    "text": "One shared notebook for your whole study group. Free for one user.",
+    "sticky": false
+  },
+  "home": {
+    "title": "Shared Notes App for Study Groups | Northwind Notes",
+    "headline": "The Shared Notes App for Study Groups",
+    "intro": "Northwind Notes gives your study group one notebook that everyone edits at the same time."
+  },
+  "static": {
+    "baseUrl": ""
+  },
+  "appsScript": {
+    "projectTitle": "single-page-landing",
+    "scriptId": "",
+    "deploymentId": "",
+    "timeZone": "Etc/UTC",
+    "urlStyle": "query",
+    "urlDomain": "viral"
+  },
+  "utm": {
+    "medium": "landing",
+    "campaign": "single-page-landing"
+  },
+  "theme": {
+    "name": "default",
+    "accent": "#41603a",
+    "scheme": "light",
+    "fontsUrl": "https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap",
+    "serifFontsUrl": "https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500..700;1,6..72,400&display=swap"
+  },
+  "hubs": []
+}

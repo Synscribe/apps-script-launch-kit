@@ -19,17 +19,19 @@ The kit is generic. Anyone can use it. **Owner rules for one site live in `sites
 > **Before writing for a site, read `sites/<site>/RULES.md` if it exists. It overrides `prompts/writing-rules.md`** (and the defaults in the template and in this file): who ranks #1, product names, CTA wording, whether the owner's product shows a price, disclosure, scheme and how to deploy. The truth rules (no invented facts, no cloaking) always apply.
 A site can also list banned wording in `site.json` `"forbid"` (regex + message). `npm run validate` fails on any match, so keep it in step with RULES.md.
 
-`sites/example/RULES.md` is a short example. Any site created with `--from <site>` gets a copy of that site's `RULES.md`.
+`sites/blog/RULES.md` is a short example. Any site created with `--from <site>` gets a copy of that site's `RULES.md`.
 
 ### Example sites
 
-| Site | Mode | What it shows |
+| Folder | Mode and layout | What it shows |
 |---|---|---|
-| `sites/example` | site | Full small site: hubs, About, guides index, a Top N page, a cost chart and a calculator |
-| `sites/example-hub` | hub | The same pages as a flat hub site |
-| `sites/example-single` | single | One Top N page as the whole site |
+| `sites/blog` | `hub`, `guide` pages | A small blog like the ones we launched: a home page that lists every page, a Top N page with a winner card, a cost calculator and a chart page |
+| `sites/single-page-blog` | `single`, `article` layout, `footer: false`, `sitemap: false` | One editorial article with ranked picks, and nothing else |
+| `sites/single-page-landing` | `single`, `landing` layout | One product landing page |
 
-All products in them are fictional. `sites/example/RULES.md` shows what owner rules look like. For the `landing` and `article` layouts, start from the templates (`npm run new-site -- --name <name> --mode single --layout landing|article`) and preview the empty templates at `/templates/landing/` and `/templates/blog-article/`.
+All three use the warm paper theme (`theme.css`, from `templates/theme-warm.css`), a header with one CTA button, no disclosure banner and a `RULES.md`. Every product in them is fictional (Northwind Notes and friends, on `.example` domains).
+
+Start a new site from one: `npm run new-site -- --name <name> --from blog` (or `single-page-blog`, `single-page-landing`).
 
 ### Site modes (`"mode"` in `site.json`)
 
@@ -44,7 +46,7 @@ All products in them are fictional. `sites/example/RULES.md` shows what owner ru
 | `{{hub:…}}`, `{{guides}}`, `{{about}}`, `{{sitemap}}` | Yes | Error | Error |
 | `meta.hub`, `featured`, `related` | Used | Leave `""` / ignored | Ignored |
 | XML sitemap `?page=sitemap.xml` | Yes | Yes | Yes, unless `"sitemap": false` |
-| Example | `sites/example` | `sites/example-hub` | `sites/example-single` |
+| Example | (none) | `sites/blog` | `sites/single-page-blog`, `sites/single-page-landing` |
 
 ### CTAs and theme settings
 
@@ -63,7 +65,7 @@ All products in them are fictional. `sites/example/RULES.md` shows what owner ru
 2. `prompts/writing-rules.md`: hard truth rules plus default ranking and disclosure rules.
 3. `prompts/page-html.md`: how to write `page.html` (structure, classes, placeholders, Top N snippets, charts).
 4. `sites/<site>/site.json` (check `mode`, `cta`, `navCta`, `ownDomains`) and `schema/meta.schema.json`.
-5. A model page from the same site, if it has one. Otherwise: `sites/example/pages/best-note-taking-apps-for-students/` (Top N), `sites/example/pages/note-app-cost-per-year/` (freeform with a chart) and the three files in `templates/` (`top-n.html`, `landing.html`, `blog-article.html`).
+5. A model page from the same site, if it has one. Otherwise: `sites/blog/pages/best-note-taking-apps-for-students/` (Top N), `sites/blog/pages/note-app-cost-per-year/` (freeform with a chart), `sites/single-page-blog/pages/top-note-apps-for-study-groups/` (article), `sites/single-page-landing/pages/shared-notes-app-for-study-groups/` (landing) and the three files in `templates/` (`top-n.html`, `landing.html`, `blog-article.html`).
 
 ## Add a page (checklist, every site)
 
@@ -109,7 +111,7 @@ The home page is `/` and `/apps-script/`.
 ## Other tasks
 
 - **New brief:** `npm run new -- --site <site> --keyword "<keyword>"`, then fill it in with the user.
-- **New site:** `npm run new-site -- --name <name> --mode site|hub|single`. Then edit `site.json` with the user. Never `cp -r` an existing site: that copies its live `scriptId` and `deploymentId`.
+- **New site:** `npm run new-site -- --name <name> [--mode hub|single|site]` (default `hub`, with the warm paper theme from `templates/theme-warm.css`). Prefer `hub` or `single`; use `site` mode only when the user wants topic pages and a nav. Then edit `site.json` with the user. Never `cp -r` an existing site: that copies its live `scriptId` and `deploymentId`.
   - **New site with the same owner as an existing one** (for example a single-page site for one keyword): `npm run new-site -- --name <name> --mode single --from <existing-site>`. It copies `site.json` (brand, CTA, navCta, ownDomains, theme; IDs cleared; new UTM campaign), `theme.css` and `RULES.md`, with no pages. Update the "This site" part of the new `RULES.md` and the name and home copy in `site.json`.
   - **Turn off the footer or sitemap:** set `"footer": false` and/or `"sitemap": false` in `site.json` (single sites only, when the user asks). `npm run as:urls` then prints "sitemap.xml: off".
   - **Single-page site from a template:** add `--layout landing|article|guide [--slug <slug>]`. It also writes `pages/<slug>/` (`meta.json` with the layout set, `page.html` copied from `templates/landing.html`, `templates/blog-article.html` or `templates/top-n.html`). Then fill `meta.json` and replace every `[[placeholder]]`. Example: `npm run new-site -- --name agent-landing --mode single --from example --layout landing --slug northwind-notes`.
@@ -168,7 +170,7 @@ URL facts (details: README, "Public URLs and what Google indexes"):
 | `src/lib/render.js` | Site shell for all three modes and the three page layouts, home/hub/guides/about/sitemap pages, "On this page", sticky CTA bar, structured data from markup, link placeholders (including `{{updated}}`) |
 | `src/lib/theme.js` | Reads `themes/<name>/*.css` + `sites/<site>/theme.css` and inlines them; adds the `theme.fontsUrl` link (and `theme.serifFontsUrl` on `article` pages) |
 | `themes/default/` | `tokens.css` (colour, type, shape, space; light + dark), `base.css` (reset, prose, shell, sticky bar), `components.css` (boxes, winner card, CTA band, items, tables, forms), `layouts.css` (the `landing` and `article` layouts: hero, mock window, feature grid, steps, picks, notice bar, slim footer) |
-| `templates/` | Page starters. `top-n.html`: Top N comparison with the owner's product first (layout `guide`). `landing.html`: product landing page (layout `landing`). `blog-article.html`: editorial article with ranked picks (layout `article`) |
+| `templates/` | Page starters. `top-n.html`: Top N comparison with the owner's product first (layout `guide`). `landing.html`: product landing page (layout `landing`). `blog-article.html`: editorial article with ranked picks (layout `article`). `theme-warm.css`: the warm paper theme that `new-site` copies to `sites/<site>/theme.css` |
 | `src/lib/styleguide.js` | The dev-only `/styleguide/` page (fictional demo content) |
 | `src/lib/build.js` | Writes `dist/<site>/static` and `dist/<site>/apps-script` (Code.js router with the XML sitemap, manifest, one HTML file per page) |
 | `src/cli/new-site.js` | `npm run new-site`, including `--from <site>` and `--layout landing|article` (starter page) |

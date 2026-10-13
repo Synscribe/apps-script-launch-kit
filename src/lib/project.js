@@ -53,7 +53,7 @@ export function sitePaths(site) {
 
 export function siteName(flags) {
   const site = flags.site || process.env.SITE;
-  if (!site) fail('Pass a site, e.g. "--site example". Sites live in sites/<name>/.');
+  if (!site) fail('Pass a site, e.g. "--site blog". Sites live in sites/<name>/.');
   if (!fs.existsSync(sitePaths(site).config)) fail(`No site config at sites/${site}/site.json.`);
   return site;
 }
