@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "keyword": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "market": {
+      "type": "string",
+      "description": "Country and language, e.g. \"Global, English\""
+    },
+    "audience": {
+      "type": "string"
+    },
+    "searchIntent": {
+      "type": "string",
+      "description": "What the searcher wants to do or decide"
+    },
+    "angle": {
+      "type": "string",
+      "description": "What makes this page more useful than the current results"
+    },
+    "format": {
+      "type": "string",
+      "description": "Page idea, e.g. \"listicle\", \"how-to guide\", \"comparison with a cost chart\", \"calculator\""
+    },
+    "itemCount": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991,
+      "description": "For lists: how many items. 0 if not a list"
+    },
+    "mustInclude": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "isOwn": {
+            "type": "boolean"
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "url",
+          "isOwn",
+          "notes"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "exclude": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "hub": {
+      "default": "",
+      "description": "Hub slug from site.json hubs. The generator copies it into the page",
+      "type": "string"
+    }
+  },
+  "required": [
+    "keyword",
+    "slug",
+    "market",
+    "audience",
+    "searchIntent",
+    "angle",
+    "format",
+    "itemCount",
+    "mustInclude",
+    "exclude",
+    "notes",
+    "hub"
+  ],
+  "additionalProperties": false
+}

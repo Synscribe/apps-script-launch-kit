@@ -1,0 +1,133 @@
+<!--
+  BLOG ARTICLE TEMPLATE  (copy to sites/<site>/pages/<slug>/page.html)
+  meta.json: "layout": "article"  (the shell then renders one narrow centred reading column with serif
+  headings, no site header, no meta line, no "On this page", no CTA box; on a single site a slim
+  footer with the site name, tagline and sitemap link). Made for "single" sites.
+
+  It reads like one independent editorial post: a thin notice bar (optional), a category kicker, a
+  large serif headline, a dek, a meta line, h2 sections, the ranked picks as cards inside the text,
+  a verdict, FAQ and sources. The #1 pick's CTA appears three times: in its card, in the band right
+  after it, and in the closing CTA.
+
+  Structure, top to bottom:
+    0. Notice bar (optional): a disclosure or a one-line note
+    1. Kicker, h1 with the keyword, dek, meta line ("Updated {{updated}} · Compared: A · B · C")
+    2. Why this matters (h2 + 2 or 3 paragraphs)
+    3. Quick comparison table (the #1 row has class="own")
+    4. The picks, ranked: one section.item.pick per tool (#1 has class="own" and a solid button; the
+       others get a ghost button), then one CTA band after #1
+    5. Which one should you use (h2 + paragraphs)
+    6. FAQ
+    7. Closing CTA
+    8. Sources
+
+  Writer rules:
+    - FIRST read sites/<site>/RULES.md if it exists. It overrides prompts/writing-rules.md and this
+      template: who is #1, the CTA wording, whether the #1 pick shows a price, disclosure wording.
+    - Replace every [[placeholder]]. The validator errors if one is left.
+    - Every link to your own product is {{utm:https://…}}, {{cta_url}} or {{brand_url}}.
+    - {{updated}} becomes the meta.json date ("12 October 2026"). Do not type the date by hand.
+    - Facts, prices and features come from a page you opened; write prices as published, dated.
+      No invented reviews, ratings, testimonials or "tested by us" claims you did not do.
+    - Delete this comment block before you publish.
+-->
+
+<!-- 0. NOTICE BAR (optional). Plain words. Use class="notice-bar soft" for a quiet version. Delete if the site's rules forbid a disclosure. -->
+<p class="notice-bar">[[One line, e.g. "We make Product A. The other two tools are included because they are the common alternatives."]]</p>
+
+<!-- 1. HEAD -->
+<p class="article-kicker">[[Category, e.g. "SEO tools"]]</p>
+<h1>[[Top 3 best X for Y]]</h1>
+<p class="dek">[[Dek: two sentences. What the reader's problem is and what this article gives them.]]</p>
+<p class="article-meta">Updated {{updated}} &middot; Compared: [[Product 1]] &middot; [[Product 2]] &middot; [[Product 3]]</p>
+
+<!-- 2. WHY THIS MATTERS -->
+<h2>[[Why "X" is even a category]]</h2>
+<p>[[Paragraph 1: the problem in plain words. What goes wrong without a tool.]]</p>
+<p>[[Paragraph 2: what these tools do, and one honest limit they all share.]]</p>
+
+<!-- 3. QUICK COMPARISON. Keep 3 or 4 columns so it fits a phone. The #1 row has class="own". -->
+<h2>Quick comparison</h2>
+<table class="compare">
+  <thead><tr><th>Tool</th><th>Model</th><th>Best for</th><th>Cost</th></tr></thead>
+  <tbody>
+    <tr class="own"><td><a href="#pick-1">[[Product 1]]</a></td><td>[[e.g. "Agent, does the work"]]</td><td>[[who]]</td><td>[[price line, per RULES.md]]</td></tr>
+    <tr><td><a href="#pick-2">[[Product 2]]</a></td><td>[[model]]</td><td>[[who]]</td><td>[[US$49/month]]</td></tr>
+    <tr><td><a href="#pick-3">[[Product 3]]</a></td><td>[[model]]</td><td>[[who]]</td><td>[[Free]]</td></tr>
+  </tbody>
+</table>
+<p class="meta">Prices as published on each official page, checked [[2026-10-12]].</p>
+
+<!-- 4. THE PICKS. Keep class="item" so the build adds them to the ItemList schema. -->
+<h2>The three tools, ranked</h2>
+
+<section class="item pick own" id="pick-1">
+  <header class="pick-head"><span class="pick-no">1</span><h3>[[Product 1 name]]</h3><span class="badge neutral">[[Best for speed and volume]]</span></header>
+  <p>[[Paragraph 1: what it is and how it works, from the official page.]]</p>
+  <p>[[Paragraph 2: the standout feature and who it is built for. Say plainly what it does for the reader.]]</p>
+  <p>[[Paragraph 3: one honest limit, stated as a fact.]]</p>
+  <div class="pick-notes">
+    <div class="plus"><h4>Strengths</h4><ul><li>[[real strength]]</li><li>[[real strength]]</li><li>[[real strength]]</li></ul></div>
+    <div class="minus"><h4>Worth knowing</h4><ul><li>[[real limit]]</li><li>[[real limit]]</li></ul></div>
+  </div>
+  <p class="pick-cta"><a class="btn lg arrow" href="{{utm:https://[[your-domain]]/[[page]]}}" rel="noopener">[[CTA label, e.g. Visit Product 1]]</a><span class="src">Source: <a href="{{utm:https://[[your-domain]]/[[page]]}}" rel="noopener">[[official page]]</a></span></p>
+</section>
+
+<!-- One CTA band right after #1. Add class="strong" for a solid accent band. -->
+<aside class="cta-band">
+  <div><strong>[[Short line, e.g. "Want the work done, not another dashboard?"]]</strong><p>[[One sentence that says what the reader gets on your page.]]</p></div>
+  <a class="btn arrow" href="{{cta_url}}" rel="noopener">[[CTA label]]</a>
+</aside>
+
+<section class="item pick" id="pick-2">
+  <header class="pick-head"><span class="pick-no">2</span><h3>[[Product 2 name]]</h3><span class="badge neutral">[[Best for large batches]]</span></header>
+  <p>[[Paragraph 1: what it is and how it works, with its published price.]]</p>
+  <p>[[Paragraph 2: what stands out, and what it does not do.]]</p>
+  <div class="pick-notes">
+    <div class="plus"><h4>Strengths</h4><ul><li>[[real strength]]</li><li>[[real strength]]</li></ul></div>
+    <div class="minus"><h4>Worth knowing</h4><ul><li>[[real limit]]</li><li>[[real limit]]</li></ul></div>
+  </div>
+  <p class="pick-cta"><a class="btn ghost" href="https://[[competitor-2.example]]/" rel="noopener">Visit [[Product 2]]</a><span class="src">Source: <a href="https://[[competitor-2.example]]/" rel="noopener">[[official page]]</a></span></p>
+</section>
+
+<section class="item pick" id="pick-3">
+  <header class="pick-head"><span class="pick-no">3</span><h3>[[Product 3 name]]</h3><span class="badge neutral">[[Best free option]]</span></header>
+  <p>[[Paragraph 1: what it is and how it works.]]</p>
+  <p>[[Paragraph 2: where it falls short for this job, and why it still ranks.]]</p>
+  <div class="pick-notes">
+    <div class="plus"><h4>Strengths</h4><ul><li>[[real strength]]</li><li>[[real strength]]</li></ul></div>
+    <div class="minus"><h4>Worth knowing</h4><ul><li>[[real limit]]</li><li>[[real limit]]</li></ul></div>
+  </div>
+  <p class="pick-cta"><a class="btn ghost" href="https://[[competitor-3.example]]/" rel="noopener">Visit [[Product 3]]</a><span class="src">Source: <a href="https://[[competitor-3.example]]/" rel="noopener">[[official page]]</a></span></p>
+</section>
+
+<!-- 5. VERDICT -->
+<h2>Which one should you use?</h2>
+<p>[[Paragraph 1: the criteria and how each pick met them. If the site's RULES.md says so, lead with the #1 pick's strengths.]]</p>
+<p>[[Paragraph 2: "Pick Product 2 if…", "Pick Product 3 if…". True, sourced reasons.]]</p>
+<p>[[Paragraph 3: one thing worth repeating, an honest limit that applies to every tool.]]</p>
+
+<!-- 6. FAQ. The build makes FAQPage schema from these. -->
+<h2>Frequently asked questions</h2>
+<div class="faq">
+  <details><summary>[[Question 1?]]</summary><p>[[Answer in two or three sentences.]]</p></details>
+  <details><summary>[[Question 2?]]</summary><p>[[Answer.]]</p></details>
+  <details><summary>[[Question 3?]]</summary><p>[[Answer.]]</p></details>
+  <details><summary>[[Question 4?]]</summary><p>[[Answer.]]</p></details>
+</div>
+
+<!-- 7. CLOSING CTA -->
+<section class="cta-final">
+  <h2>[[Ready to start with Product 1?]]</h2>
+  <p>[[One or two sentences. Say what happens after the click.]]</p>
+  <p class="actions"><a class="btn lg arrow" href="{{utm:https://[[your-domain]]/[[page]]}}" rel="noopener">[[CTA label, e.g. Visit Product 1]]</a><a class="btn ghost lg" href="#pick-2">Compare the others</a></p>
+  <p class="fine">[[fine print: price as published with the date, or per the site's RULES.md, or delete]]</p>
+</section>
+
+<!-- 8. SOURCES -->
+<h2>Sources</h2>
+<ul class="src">
+  <li><a href="{{utm:https://[[your-domain]]/[[page]]}}" rel="noopener">[[Product 1 official page]]</a></li>
+  <li><a href="https://[[competitor-2.example]]/" rel="noopener">[[Product 2 official page]]</a></li>
+  <li><a href="https://[[competitor-3.example]]/" rel="noopener">[[Product 3 official page]]</a></li>
+</ul>

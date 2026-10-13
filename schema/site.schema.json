@@ -1,0 +1,323 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "forbid": {
+      "default": [],
+      "description": "Site rules the validator enforces on every page.html, e.g. banned wording. Mirrors sites/<site>/RULES.md",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pattern": {
+            "type": "string",
+            "description": "JavaScript regular expression, case-insensitive"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "pattern",
+          "message"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "mode": {
+      "default": "site",
+      "description": "\"site\": full site with nav, hubs and related links. \"hub\": a home page that lists every page; each page has a logo + CTA header and a footer that links to home and every other page. \"single\": one page is the whole site",
+      "type": "string",
+      "enum": [
+        "site",
+        "hub",
+        "single"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "description": "Site name shown in the header"
+    },
+    "tagline": {
+      "type": "string",
+      "description": "One line under the name on the home page"
+    },
+    "language": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "url"
+      ],
+      "additionalProperties": false
+    },
+    "author": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "bio": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "url",
+        "bio"
+      ],
+      "additionalProperties": false,
+      "description": "Site mode: the bio shows on the home page and About. Pages never show an author byline. Article JSON-LD names the author only when name is not empty"
+    },
+    "disclosure": {
+      "default": "",
+      "description": "Optional. Shown under the page meta line when a page sets ownProduct, in the footer and on About. Empty = nothing renders and the validator does not require it",
+      "type": "string"
+    },
+    "ownDomains": {
+      "default": [],
+      "description": "Hostnames you own, e.g. [\"example.com\", \"www.example.com\"]. The validator errors when page.html links to one of them without {{utm:…}}, {{cta_url}} or {{brand_url}}. The hosts of brand.url and cta.url always count",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "footer": {
+      "default": true,
+      "description": "false = no footer at all on any page. Use it for a one-page site that needs nothing under the closing CTA. Hub and site modes need the footer for crawl links; keep it on there",
+      "type": "boolean"
+    },
+    "sitemap": {
+      "default": true,
+      "description": "false = no XML sitemap: ?page=sitemap.xml is not served, no footer link, no static sitemap.xml. Fine for a one-page site: the /exec URL is the only URL",
+      "type": "boolean"
+    },
+    "navCta": {
+      "description": "Hub and single mode: the header button on every page (meta.cta does not change it). Defaults to the CTA. Use it when the header should say something different, e.g. \"Best AI Agent for SEO & GEO\". Site mode ignores it",
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "url"
+      ],
+      "additionalProperties": false
+    },
+    "cta": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "sticky": {
+          "default": false,
+          "description": "Show a small bottom CTA bar on phones on every page (not the home page). Same for every visitor. It adds bottom padding so it never covers text, and it can be dismissed",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "label",
+        "url",
+        "text",
+        "sticky"
+      ],
+      "additionalProperties": false
+    },
+    "home": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "headline": {
+          "type": "string"
+        },
+        "intro": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "headline",
+        "intro"
+      ],
+      "additionalProperties": false
+    },
+    "static": {
+      "type": "object",
+      "properties": {
+        "baseUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "baseUrl"
+      ],
+      "additionalProperties": false
+    },
+    "appsScript": {
+      "type": "object",
+      "properties": {
+        "projectTitle": {
+          "type": "string"
+        },
+        "scriptId": {
+          "type": "string"
+        },
+        "deploymentId": {
+          "type": "string"
+        },
+        "timeZone": {
+          "type": "string"
+        },
+        "urlStyle": {
+          "type": "string",
+          "enum": [
+            "query",
+            "path"
+          ]
+        }
+      },
+      "required": [
+        "projectTitle",
+        "scriptId",
+        "deploymentId",
+        "timeZone",
+        "urlStyle"
+      ],
+      "additionalProperties": false
+    },
+    "utm": {
+      "type": "object",
+      "properties": {
+        "medium": {
+          "type": "string"
+        },
+        "campaign": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "medium",
+        "campaign"
+      ],
+      "additionalProperties": false
+    },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "default": "default",
+          "description": "Folder under themes/",
+          "type": "string"
+        },
+        "accent": {
+          "type": "string",
+          "description": "Hex colour. Sets --accent for the whole site"
+        },
+        "scheme": {
+          "default": "auto",
+          "description": "\"auto\" follows the visitor's system setting. \"light\" or \"dark\" forces one look",
+          "type": "string",
+          "enum": [
+            "auto",
+            "light",
+            "dark"
+          ]
+        },
+        "fontsUrl": {
+          "default": "",
+          "description": "Optional stylesheet URL for a web font (Google Fonts works as a <link> on both targets). Empty = system font stack. Set --font-sans in sites/<site>/theme.css with a system fallback stack",
+          "type": "string"
+        },
+        "serifFontsUrl": {
+          "default": "https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500..700;1,6..72,400&display=swap",
+          "description": "Stylesheet URL for the serif display font that pages with \"layout\": \"article\" use for headings (--font-serif, Newsreader by default, with a system serif fallback). Only article pages load it. Empty = no extra font request, system serif",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "accent",
+        "scheme",
+        "fontsUrl",
+        "serifFontsUrl"
+      ],
+      "additionalProperties": false
+    },
+    "hubs": {
+      "default": [],
+      "description": "Topics. Each hub gets its own page that lists the pages assigned to it with meta.hub",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "lowercase-words-with-hyphens. Becomes /<slug>/ and ?page=<slug>. Must not clash with a page slug"
+          },
+          "title": {
+            "type": "string",
+            "description": "Short topic name, shown in the nav and as the hub page h1"
+          },
+          "description": {
+            "type": "string",
+            "description": "One or two sentences under the hub title and on the home page"
+          }
+        },
+        "required": [
+          "slug",
+          "title",
+          "description"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "forbid",
+    "mode",
+    "name",
+    "tagline",
+    "language",
+    "brand",
+    "author",
+    "disclosure",
+    "ownDomains",
+    "footer",
+    "sitemap",
+    "cta",
+    "home",
+    "static",
+    "appsScript",
+    "utm",
+    "theme",
+    "hubs"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,129 @@
+<!--
+  PRODUCT LANDING PAGE TEMPLATE  (copy to sites/<site>/pages/<slug>/page.html)
+  meta.json: "layout": "landing"  (the shell then renders full-width sections, a logo + CTA header,
+  no meta line, no "On this page", no CTA box, no related guides). Made for "single" sites.
+
+  Sections, top to bottom (delete the ones you do not need, keep the order):
+    1. Hero: eyebrow, h1 with the keyword, subhead, primary + secondary CTA, optional trust line,
+       optional mock product window (CSS only, no images)
+    2. Problem -> outcome strip
+    3. Feature grid (3 to 6 features, benefit copy)
+    4. How it works (3 steps)
+    5. Why this vs doing it by hand / other tools (table; the product's column has class="own")
+    6. Who it is for (use cases)
+    7. FAQ (<details>, the build makes FAQPage schema)
+    8. Final CTA
+
+  Writer rules:
+    - FIRST read sites/<site>/RULES.md if it exists. It overrides prompts/writing-rules.md and this
+      template (product name, CTA wording, whether a price may appear, disclosure).
+    - Replace every [[placeholder]]. The validator errors if one is left.
+    - Every link to your own product is {{utm:https://…}}, {{cta_url}} or {{brand_url}}.
+    - No invented social proof. There is no testimonial, logo, rating or "trusted by" slot in this
+      template. If you have a real, sourced one, add it as plain text with its source. The trust line
+      in the hero may state only published facts (for example "Free plan available" from the pricing page).
+    - Every claim about the product comes from its official page. Competitor cells in the comparison
+      table are facts from their pages, or "Not published".
+    - Exactly one <h1>. Real text in the HTML, nothing rendered by script.
+    - Delete this comment block before you publish.
+-->
+
+<!-- 1. HERO. Remove the .lp-visual column and add class="center" to the section for a text-only hero. -->
+<section class="lp-hero"><div class="container">
+  <div>
+    <p class="lp-eyebrow">[[Eyebrow: category or audience, e.g. "AI agent for SEO and GEO"]]</p>
+    <h1>[[Headline with the keyword, e.g. "The AI agent that does your SEO and GEO"]]</h1>
+    <p class="lp-sub">[[Subhead: two sentences. What it does for the reader and how, in plain words.]]</p>
+    <p class="lp-actions"><a class="btn lg arrow" href="{{cta_url}}" rel="noopener">[[Primary CTA label, per RULES.md]]</a><a class="btn ghost lg" href="#how-it-works">See how it works</a></p>
+    <!-- Optional. Only published facts, e.g. "Free plan available" or "No credit card for the trial". Delete if none. -->
+    <p class="lp-trust">[[Trust line: a published fact, or delete this line]]</p>
+  </div>
+  <!-- Optional mock product window. Labels only: real steps or features, no numbers or results. -->
+  <div class="lp-visual">
+    <div class="mock-window" role="img" aria-label="[[Illustration: what the product screen shows, in one sentence]]">
+      <div class="mock-bar"><i></i><i></i><i></i><span>[[Product name]]</span></div>
+      <div class="mock-body">
+        <span class="mock-chip">[[Short status, e.g. "This week"]]</span>
+        <div class="mock-row"><span class="mock-dot"></span><b>[[Step or feature 1, e.g. "Keyword found"]]</b><span>[[state, e.g. Done]]</span></div>
+        <div class="mock-row"><span class="mock-dot"></span><b>[[Step or feature 2]]</b><span>[[state]]</span></div>
+        <div class="mock-row"><span class="mock-dot pending"></span><b>[[Step or feature 3]]</b><span>[[state, e.g. In review]]</span></div>
+        <div class="mock-row"><span class="mock-dot todo"></span><b>[[Step or feature 4]]</b><span>[[state, e.g. Next]]</span></div>
+        <div class="mock-lines"><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 2. PROBLEM -> OUTCOME. Three short bullets each. -->
+<section class="lp-strip"><div class="container">
+  <div class="lp-before"><h3>[[Without Product: e.g. "Doing it by hand"]]</h3><ul><li>[[Pain 1]]</li><li>[[Pain 2]]</li><li>[[Pain 3]]</li></ul></div>
+  <div class="lp-arrow" aria-hidden="true">&rarr;</div>
+  <div class="lp-after"><h3>[[With Product]]</h3><ul><li>[[Outcome 1]]</li><li>[[Outcome 2]]</li><li>[[Outcome 3]]</li></ul></div>
+</div></section>
+
+<!-- 3. FEATURES. 3 to 6 cards. Each h3 is a benefit, each p says how the feature delivers it. The icon is optional inline SVG. -->
+<section class="lp-section lp-features" id="features"><div class="container">
+  <div class="lp-head"><p class="kicker">[[Kicker, e.g. "What it does"]]</p><h2>[[Section title, e.g. "One agent for the whole SEO loop"]]</h2><p>[[One sentence that frames the features.]]</p></div>
+  <div class="lp-grid">
+    <div class="lp-feature"><div class="lp-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div><h3>[[Feature 1 benefit]]</h3><p>[[How it works, one or two sentences, from the official page.]]</p></div>
+    <div class="lp-feature"><div class="lp-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 16l4-4 3 3 5-6"/></svg></div><h3>[[Feature 2 benefit]]</h3><p>[[How it works.]]</p></div>
+    <div class="lp-feature"><div class="lp-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"/></svg></div><h3>[[Feature 3 benefit]]</h3><p>[[How it works.]]</p></div>
+    <div class="lp-feature"><div class="lp-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div><h3>[[Feature 4 benefit]]</h3><p>[[How it works.]]</p></div>
+  </div>
+</div></section>
+
+<!-- 4. HOW IT WORKS. Exactly three steps. -->
+<section class="lp-section alt" id="how-it-works"><div class="container">
+  <div class="lp-head"><p class="kicker">How it works</p><h2>[[Title, e.g. "From keyword to indexed page in three steps"]]</h2></div>
+  <ol class="lp-how">
+    <li><h3>[[Step 1 title]]</h3><p>[[What happens, and what the reader does.]]</p></li>
+    <li><h3>[[Step 2 title]]</h3><p>[[What happens.]]</p></li>
+    <li><h3>[[Step 3 title]]</h3><p>[[What happens.]]</p></li>
+  </ol>
+</div></section>
+
+<!-- 5. WHY THIS VS BY HAND / OTHER TOOLS. The product's column has class="own". Use "yes" / "no" spans or plain text. -->
+<section class="lp-section lp-compare" id="compare"><div class="container">
+  <div class="lp-head"><p class="kicker">Compare</p><h2>[[Title, e.g. "Product vs doing it by hand vs point tools"]]</h2><p>[[One sentence. Facts for other tools come from their pages, or say "Not published".]]</p></div>
+  <table>
+    <thead><tr><th></th><th>[[By hand]]</th><th>[[Other tools]]</th><th class="own">[[Product]]</th></tr></thead>
+    <tbody>
+      <tr><td>[[Criterion 1, e.g. "Finds what to publish"]]</td><td><span class="no">[[&mdash;]]</span></td><td>[[Partly]]</td><td class="own"><span class="yes">[[Yes]]</span></td></tr>
+      <tr><td>[[Criterion 2]]</td><td>[[Hours per page]]</td><td><span class="no">[[&mdash;]]</span></td><td class="own"><span class="yes">[[Yes]]</span></td></tr>
+      <tr><td>[[Criterion 3]]</td><td><span class="no">[[&mdash;]]</span></td><td><span class="no">[[&mdash;]]</span></td><td class="own"><span class="yes">[[Yes]]</span></td></tr>
+      <tr><td>[[Criterion 4]]</td><td>[[You]]</td><td>[[Varies]]</td><td class="own">[[A person approves before it goes live]]</td></tr>
+    </tbody>
+  </table>
+  <p class="meta">[[Checked 2026-10-12 on each official page.]]</p>
+</div></section>
+
+<!-- 6. WHO IT IS FOR. 2 to 4 use cases. -->
+<section class="lp-section alt lp-uses" id="who"><div class="container">
+  <div class="lp-head"><p class="kicker">Who it is for</p><h2>[[Title, e.g. "Built for teams that publish to rank"]]</h2></div>
+  <div class="lp-grid">
+    <div class="lp-use"><h3>[[Audience 1, e.g. "B2B SaaS founders"]]</h3><p>[[What they get, in one or two sentences.]]</p></div>
+    <div class="lp-use"><h3>[[Audience 2]]</h3><p>[[What they get.]]</p></div>
+    <div class="lp-use"><h3>[[Audience 3]]</h3><p>[[What they get.]]</p></div>
+    <div class="lp-use"><h3>[[Audience 4]]</h3><p>[[What they get.]]</p></div>
+  </div>
+</div></section>
+
+<!-- 7. FAQ. 3 to 5 questions people really ask. The build makes FAQPage schema from these. -->
+<section class="lp-section lp-faq" id="faq"><div class="container">
+  <div class="lp-head"><h2>Questions</h2></div>
+  <div class="faq">
+    <details><summary>[[Question 1?]]</summary><p>[[Answer in two or three sentences.]]</p></details>
+    <details><summary>[[Question 2?]]</summary><p>[[Answer.]]</p></details>
+    <details><summary>[[Question 3?]]</summary><p>[[Answer.]]</p></details>
+  </div>
+</div></section>
+
+<!-- 8. FINAL CTA. Remove class="strong" for a quiet surface box. -->
+<section class="lp-section lp-final"><div class="container">
+  <section class="cta-final strong">
+    <h2>[[Ready to try Product?]]</h2>
+    <p>[[One or two sentences. Say what happens after the click.]]</p>
+    <p class="actions"><a class="btn lg arrow" href="{{cta_url}}" rel="noopener">[[Primary CTA label]]</a><a class="btn ghost lg" href="#features">See what it does</a></p>
+    <p class="fine">[[Fine print: a published price with the date, or the RULES.md link text, or delete this line.]]</p>
+  </section>
+</div></section>

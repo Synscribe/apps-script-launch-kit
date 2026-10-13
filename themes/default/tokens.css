@@ -1,0 +1,128 @@
+/* Design tokens. The build inlines this file, then base.css and components.css,
+   then sites/<site>/theme.css (if it exists). The build also appends
+   :root{--accent:<site.json theme.accent>} so each site keeps its own colour.
+
+   Light is the default. Dark follows the system, unless the page sets
+   <html data-theme="light|dark"> (the dev server does this for ?theme=...). */
+
+:root {
+  color-scheme: light;
+
+  /* Type */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: clamp(2rem, 1.4rem + 2vw, 2.75rem);
+  --leading: 1.6;
+
+  /* Space: 4px grid */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+
+  /* Widths */
+  --wide: 1120px;   /* header, footer, home */
+  --col: 720px;     /* article column */
+  --rail: 220px;    /* "On this page" rail */
+  --gutter: 16px;
+
+  /* Type details a cloned brand may change */
+  --font-display: var(--font-sans);   /* headings and the winner card title */
+  --heading-weight: 700;
+  --heading-tracking: -0.02em;        /* h1 letter-spacing */
+
+  /* Shape */
+  --radius: 4px;
+  --radius-lg: 6px;
+  --radius-btn: var(--radius);        /* buttons and badges; 999px makes pills */
+  --shadow-card: none;                /* cards, winner card, CTA boxes */
+
+  /* Colour: cool neutrals */
+  --bg: #ffffff;
+  --surface: #f4f5f7;
+  --surface-2: #e9ebef;
+  --fg: #15181d;
+  --fg-2: #3d4450;
+  --muted: #666e7a;
+  --line: #dadfe5;
+  --line-2: #eceef2;
+  --line-strong: #c3c9d2;
+
+  /* Accent. The build overrides --accent per site. */
+  --accent: #2563eb;
+  --accent-ink: var(--accent);                                   /* links and small accent text */
+  --accent-soft: color-mix(in oklab, var(--accent) 9%, var(--bg)); /* tinted backgrounds */
+  --accent-fg: #ffffff;                                          /* text on a solid accent */
+  --accent-hover: color-mix(in oklab, var(--accent) 86%, black);  /* solid buttons on hover */
+
+  /* Status */
+  --ok: #1a7f4b;
+  --warn: #b45309;
+  --bad: #b42318;
+
+  /* Charts: read these from JS, see prompts/page-html.md */
+  --chart-1: var(--accent);
+  --chart-2: #0f766e;
+  --chart-3: #b45309;
+  --chart-4: #6d28d9;
+  --chart-5: #64748b;
+  --chart-grid: var(--line);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0f1114;
+    --surface: #171a1f;
+    --surface-2: #20242b;
+    --fg: #e8eaee;
+    --fg-2: #c2c7d0;
+    --muted: #98a0ac;
+    --line: #2b3038;
+    --line-2: #22262d;
+    --line-strong: #3b424c;
+    --accent-ink: color-mix(in oklab, var(--accent) 65%, white);
+    --accent-soft: color-mix(in oklab, var(--accent) 16%, var(--bg));
+  --accent-hover: color-mix(in oklab, var(--accent) 82%, white);
+    --ok: #4ade80;
+    --warn: #fbbf24;
+    --bad: #f87171;
+    --chart-2: #2dd4bf;
+    --chart-3: #fb923c;
+    --chart-4: #a78bfa;
+    --chart-5: #94a3b8;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f1114;
+  --surface: #171a1f;
+  --surface-2: #20242b;
+  --fg: #e8eaee;
+  --fg-2: #c2c7d0;
+  --muted: #98a0ac;
+  --line: #2b3038;
+  --line-2: #22262d;
+  --line-strong: #3b424c;
+  --accent-ink: color-mix(in oklab, var(--accent) 65%, white);
+  --accent-soft: color-mix(in oklab, var(--accent) 16%, var(--bg));
+  --accent-hover: color-mix(in oklab, var(--accent) 82%, white);
+  --ok: #4ade80;
+  --warn: #fbbf24;
+  --bad: #f87171;
+  --chart-2: #2dd4bf;
+  --chart-3: #fb923c;
+  --chart-4: #a78bfa;
+  --chart-5: #94a3b8;
+}

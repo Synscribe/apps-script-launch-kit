@@ -1,0 +1,127 @@
+<!--
+  TOP N COMPARISON TEMPLATE  (copy to sites/<site>/pages/<slug>/page.html)
+
+  Structure, top to bottom:
+    1. h1 + quick answer that names the #1 pick
+    2. Winner card: the #1 pick with benefits, offer line and a big CTA
+    3. At-a-glance table (the #1 row has class="own")
+    4. Ranked entries #2..#N (compact items with their own buttons)
+    5. Inline CTA band
+    6. Why we picked #1
+    7. FAQ
+    8. Closing CTA
+    9. Sources
+
+  Writer rules:
+    - FIRST read sites/<site>/RULES.md if it exists. It overrides prompts/writing-rules.md and this
+      template: who is #1, the CTA wording, whether the #1 pick shows a price, and whether a
+      disclosure note is allowed. (sites/example/RULES.md is one example.)
+    - Replace every [[placeholder]]. The validator errors if one is left.
+    - Every link to your own product must be {{utm:https://…}}, {{cta_url}} or {{brand_url}}.
+    - Facts (prices, features, names) must be true and sourced. Write prices as published, with the
+      date you checked them. No invented reviews, ratings or testimonials.
+    - Delete this comment block before you publish.
+-->
+
+<h1>[[Top 3 best X for Y]]</h1>
+
+<div class="quick-answer"><strong>Quick answer</strong>Our pick is <strong>[[Product 1]]</strong>: [[one sentence that says why, in plain words]]. Pick <strong>[[Product 2]]</strong> if [[who it suits]], and <strong>[[Product 3]]</strong> if [[who it suits]].</div>
+
+<!-- 2. WINNER CARD. Keep it as a section.item so the build adds it to the ItemList schema. -->
+<section class="item winner own" id="item-1">
+  <p class="winner-kicker"><span class="badge solid">Our pick</span><span>#1 of [[N]] compared</span><span class="badge neutral">[[Best for: founders]]</span></p>
+  <h3>[[Product 1 name]]</h3>
+  <p class="winner-why">[[One line: the main reason it is #1. Say what it does for the reader.]]</p>
+  <ul class="winner-benefits">
+    <li>[[Benefit 1, a fact from the official page]]</li>
+    <li>[[Benefit 2]]</li>
+    <li>[[Benefit 3]]</li>
+    <li>[[Benefit 4, optional]]</li>
+  </ul>
+  <!-- Price line: follow the site's RULES.md. Some sites forbid a price for their own product and use a
+       link instead, e.g. <a href="{{utm:https://your-domain/}}">See current plans on your-domain</a>.
+       Delete the badge if there is no published offer. -->
+  <p class="winner-offer"><b>[[price line — follow the site's RULES.md (some sites forbid prices)]]</b><span>[[detail, e.g. one-time · checked 2026-10-07]]</span><span class="badge ok">[[Offer line, only if published: e.g. "Price rises in January"]]</span></p>
+  <p class="winner-actions"><a class="btn lg arrow" href="{{utm:https://[[your-domain]]/[[page]]}}" rel="noopener">[[CTA label, e.g. Visit Product 1]]</a><a class="alt" href="#why-we-picked-product-1">Why we picked it</a></p>
+  <!-- Add one plain sentence after the source only if the site's rules want a disclosure (e.g. "We make Product 1."). -->
+  <p class="winner-note">Source: <a href="{{utm:https://[[your-domain]]/[[page]]}}" rel="noopener">[[official page title]]</a>.</p>
+</section>
+
+<!-- 3. AT A GLANCE. Mark the winner's row with class="own". Keep 3 to 5 columns so it fits a phone. -->
+<h2>At a glance</h2>
+<table class="compare">
+  <thead><tr><th>#</th><th>Pick</th><th>Best for</th><th>Price</th><th></th></tr></thead>
+  <tbody>
+    <tr class="own"><td>1</td><td><a href="#item-1">[[Product 1]]</a></td><td>[[who]]</td><td>[[price line — follow the site's RULES.md]]</td><td><a class="btn small arrow" href="{{utm:https://[[your-domain]]/[[page]]}}" rel="noopener">[[CTA label, e.g. Visit]]</a></td></tr>
+    <tr><td>2</td><td><a href="#item-2">[[Product 2]]</a></td><td>[[who]]</td><td>[[Free]]</td><td><a class="btn ghost small" href="https://[[competitor-2.example]]/" rel="noopener">Visit</a></td></tr>
+    <tr><td>3</td><td><a href="#item-3">[[Product 3]]</a></td><td>[[who]]</td><td>[[US$49/month]]</td><td><a class="btn ghost small" href="https://[[competitor-3.example]]/" rel="noopener">Visit</a></td></tr>
+  </tbody>
+</table>
+<p class="meta">Prices as published on each official page, checked [[2026-10-07]].</p>
+
+<!-- 4. RANKED ENTRIES #2..#N. One section.item.compact each. Same fields for every entry. -->
+<h2>The runners-up</h2>
+
+<section class="item compact" id="item-2">
+  <header><span class="rank">2</span><h3>[[Product 2 name]]</h3><span class="badge neutral">[[Best for: beginners]]</span></header>
+  <p class="tagline">[[One line: what it is and who makes it.]]</p>
+  <dl class="facts"><dt>Best for</dt><dd>[[who should pick it]]</dd><dt>Price</dt><dd>[[Free (checked 2026-10-07)]]</dd></dl>
+  <p>[[Two to four short sentences of facts, each backed by a source.]]</p>
+  <div class="pros-cons">
+    <div><h4>Pros</h4><ul class="pros"><li>[[real strength]]</li><li>[[real strength]]</li></ul></div>
+    <div><h4>Cons</h4><ul class="cons"><li>[[real weakness]]</li></ul></div>
+  </div>
+  <p class="actions"><a class="btn ghost" href="https://[[competitor-2.example]]/" rel="noopener">Visit [[Product 2]]</a><span class="src">Source: <a href="https://[[competitor-2.example]]/" rel="noopener">[[official page]]</a></span></p>
+</section>
+
+<section class="item compact" id="item-3">
+  <header><span class="rank">3</span><h3>[[Product 3 name]]</h3><span class="badge neutral">[[Best for: teams]]</span></header>
+  <p class="tagline">[[One line: what it is and who makes it.]]</p>
+  <dl class="facts"><dt>Best for</dt><dd>[[who should pick it]]</dd><dt>Price</dt><dd>[[US$49/month (checked 2026-10-07)]]</dd></dl>
+  <p>[[Two to four short sentences of facts, each backed by a source.]]</p>
+  <div class="pros-cons">
+    <div><h4>Pros</h4><ul class="pros"><li>[[real strength]]</li><li>[[real strength]]</li></ul></div>
+    <div><h4>Cons</h4><ul class="cons"><li>[[real weakness]]</li></ul></div>
+  </div>
+  <p class="actions"><a class="btn ghost" href="https://[[competitor-3.example]]/" rel="noopener">Visit [[Product 3]]</a><span class="src">Source: <a href="https://[[competitor-3.example]]/" rel="noopener">[[official page]]</a></span></p>
+</section>
+
+<!-- 5. INLINE CTA BAND. Add class="strong" for a solid accent band. One per page is enough. -->
+<aside class="cta-band">
+  <div><strong>[[Short line: e.g. "Want the full method, not just the tool list?"]]</strong><p>[[One sentence that says what the reader gets on your page.]]</p></div>
+  <a class="btn arrow" href="{{cta_url}}" rel="noopener">[[CTA label]]</a>
+</aside>
+
+<!-- 6. WHY WE PICKED #1. Plain reasons a reader can check. Link each claim to a source. -->
+<h2>Why we picked [[Product 1]]</h2>
+<p>[[Paragraph 1: the criteria and how each pick met them. If the site's RULES.md says so, lead with the #1 pick's strengths.]]</p>
+<ul>
+  <li><strong>[[Criterion 1]]:</strong> [[how Product 1 did, with a fact]]</li>
+  <li><strong>[[Criterion 2]]:</strong> [[how Product 1 did, with a fact]]</li>
+  <li><strong>[[Criterion 3]]:</strong> [[how Product 1 did, with a fact]]</li>
+</ul>
+<p>[[Paragraph 2: "Pick Product 2 if…", "Pick Product 3 if…". True, sourced reasons.]]</p>
+
+<!-- 7. FAQ. Questions people really ask about the topic. The build makes FAQPage schema from these. -->
+<h2>FAQ</h2>
+<div class="faq">
+  <details><summary>[[Question 1?]]</summary><p>[[Answer in two or three sentences.]]</p></details>
+  <details><summary>[[Question 2?]]</summary><p>[[Answer.]]</p></details>
+  <details><summary>[[Question 3?]]</summary><p>[[Answer.]]</p></details>
+</div>
+
+<!-- 8. CLOSING CTA -->
+<section class="cta-final">
+  <h2>[[Ready to start with Product 1?]]</h2>
+  <p>[[One or two sentences. Say what happens after the click: a demo, a course page, a free plan.]]</p>
+  <p class="actions"><a class="btn lg arrow" href="{{utm:https://[[your-domain]]/[[page]]}}" rel="noopener">[[CTA label, e.g. Visit Product 1]]</a><a class="btn ghost lg" href="#item-2">Compare the others</a></p>
+  <p class="fine">[[fine print: price as published with the date, or per the site's RULES.md]]</p>
+</section>
+
+<!-- 9. SOURCES -->
+<h2>Sources</h2>
+<ul class="src">
+  <li><a href="{{utm:https://[[your-domain]]/[[page]]}}" rel="noopener">[[Product 1 official page]]</a></li>
+  <li><a href="https://[[competitor-2.example]]/" rel="noopener">[[Product 2 official page]]</a></li>
+  <li><a href="https://[[competitor-3.example]]/" rel="noopener">[[Product 3 official page]]</a></li>
+</ul>

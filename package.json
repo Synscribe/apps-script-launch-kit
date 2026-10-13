@@ -1,0 +1,40 @@
+{
+  "name": "apps-script-launch-kit",
+  "version": "0.1.0",
+  "scripts": {
+    "new": "node src/cli/new-brief.js",
+    "generate": "node src/cli/generate.js",
+    "validate": "node src/cli/validate.js",
+    "build": "node src/cli/build.js",
+    "dev": "node src/cli/dev.js",
+    "schema": "node src/cli/schema.js",
+    "as:login": "clasp login",
+    "as:init": "node src/cli/apps-script.js init",
+    "as:push": "node src/cli/apps-script.js push",
+    "as:deploy": "node src/cli/apps-script.js deploy",
+    "as:urls": "node src/cli/apps-script.js urls",
+    "new-site": "node src/cli/new-site.js",
+    "brand:extract": "node src/cli/brand-extract.js"
+  },
+  "keywords": [
+    "seo",
+    "geo",
+    "google-apps-script",
+    "listicle"
+  ],
+  "author": "Synscribe",
+  "license": "MIT",
+  "description": "Build listicle pages once, publish them to Google Apps Script and to your own domain, and measure both.",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@google/clasp": "^3.4.1"
+  },
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
+}

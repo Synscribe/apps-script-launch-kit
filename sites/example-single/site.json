@@ -1,0 +1,46 @@
+{
+  "mode": "single",
+  "name": "Note App Picks",
+  "tagline": "Demo single-page site. Every product is fictional.",
+  "language": "en",
+  "brand": {
+    "name": "Northwind Notes",
+    "url": "https://example.com/northwind"
+  },
+  "author": {
+    "name": "Alex Example",
+    "url": "",
+    "bio": "Demo author."
+  },
+  "disclosure": "We make Northwind Notes. When a page lists it, we rank it by the same criteria as everything else.",
+  "cta": {
+    "label": "Try Northwind Notes",
+    "url": "https://example.com/northwind",
+    "text": "Northwind Notes is the note app we make. It is free for one user."
+  },
+  "home": {
+    "title": "Note App Picks",
+    "headline": "Note App Picks",
+    "intro": "Demo single-page site."
+  },
+  "static": {
+    "baseUrl": ""
+  },
+  "appsScript": {
+    "projectTitle": "example-single",
+    "scriptId": "",
+    "deploymentId": "",
+    "timeZone": "Etc/UTC",
+    "urlStyle": "query"
+  },
+  "utm": {
+    "medium": "listicle",
+    "campaign": "example-single"
+  },
+  "theme": {
+    "name": "default",
+    "accent": "#2563eb",
+    "fontsUrl": ""
+  },
+  "hubs": []
+}

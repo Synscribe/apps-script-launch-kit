@@ -1,0 +1,50 @@
+{
+  "name": "Example Guides",
+  "tagline": "A demo site for apps-script-launch-kit. Every product here is fictional.",
+  "language": "en",
+  "brand": {
+    "name": "Northwind Notes",
+    "url": "https://example.com/northwind"
+  },
+  "author": {
+    "name": "Alex Example",
+    "url": "",
+    "bio": "Demo site for apps-script-launch-kit. All products on it are fictional."
+  },
+  "disclosure": "We make Northwind Notes, which appears in this list. We ranked it by the same criteria as every other app.",
+  "cta": {
+    "label": "Try Northwind Notes",
+    "url": "https://example.com/northwind",
+    "text": "Northwind Notes is the note app we make. It is free for one user."
+  },
+  "home": {
+    "title": "Example Guides: demo site",
+    "headline": "Honest guides to study tools",
+    "intro": "A demo of apps-script-launch-kit. Every product on this site is fictional."
+  },
+  "static": {
+    "baseUrl": ""
+  },
+  "appsScript": {
+    "projectTitle": "Example Guides",
+    "scriptId": "",
+    "deploymentId": "",
+    "timeZone": "Etc/UTC",
+    "urlStyle": "query"
+  },
+  "utm": {
+    "medium": "listicle",
+    "campaign": "launch-kit-example"
+  },
+  "theme": {
+    "name": "default",
+    "accent": "#1f6feb"
+  },
+  "hubs": [
+    {
+      "slug": "note-apps",
+      "title": "Note apps",
+      "description": "Demo comparisons, guides and tools about fictional note apps. Every product and price on this site is made up."
+    }
+  ]
+}

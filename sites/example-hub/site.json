@@ -1,0 +1,46 @@
+{
+  "mode": "hub",
+  "name": "Study Tool Guides",
+  "tagline": "Demo hub site. Every product is fictional.",
+  "language": "en",
+  "brand": {
+    "name": "Northwind Notes",
+    "url": "https://example.com/northwind"
+  },
+  "author": {
+    "name": "Alex Example",
+    "url": "",
+    "bio": "Demo author."
+  },
+  "disclosure": "We make Northwind Notes. When a page lists it, we rank it by the same criteria as everything else.",
+  "cta": {
+    "label": "Try Northwind Notes",
+    "url": "https://example.com/northwind",
+    "text": "Northwind Notes is the note app we make. It is free for one user."
+  },
+  "home": {
+    "title": "Study Tool Guides: demo hub site",
+    "headline": "Study tool guides",
+    "intro": "A demo hub site: this page links to every guide, and each guide stands alone. Every product is fictional."
+  },
+  "static": {
+    "baseUrl": ""
+  },
+  "appsScript": {
+    "projectTitle": "example-hub",
+    "scriptId": "",
+    "deploymentId": "",
+    "timeZone": "Etc/UTC",
+    "urlStyle": "query"
+  },
+  "utm": {
+    "medium": "listicle",
+    "campaign": "example-hub"
+  },
+  "theme": {
+    "name": "default",
+    "accent": "#2563eb",
+    "fontsUrl": ""
+  },
+  "hubs": []
+}

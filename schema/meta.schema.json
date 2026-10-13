@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Browser and Google title, 60 characters or less, contains the keyword"
+    },
+    "description": {
+      "type": "string",
+      "description": "155 characters or less. Meta description on the static site; card text on the home page"
+    },
+    "keyword": {
+      "type": "string",
+      "description": "The main search query this page targets"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "approved"
+      ],
+      "description": "\"draft\" until a person reviews the page"
+    },
+    "updated": {
+      "type": "string",
+      "description": "Date of the last real change, YYYY-MM-DD"
+    },
+    "ownProduct": {
+      "type": "boolean",
+      "description": "True if the page names or recommends the site owner's product. If site.json has a non-empty disclosure, the shell shows it"
+    },
+    "featured": {
+      "type": "boolean",
+      "description": "Site mode only: list first on the home page and hub pages. No effect in hub or single mode"
+    },
+    "type": {
+      "default": "guide",
+      "description": "Page type: \"guide\" (how-to or explainer), \"comparison\" (ranked list or X vs Y), \"tool\" (calculator or checker). Sets the label and the grouping on hub pages",
+      "type": "string",
+      "enum": [
+        "guide",
+        "comparison",
+        "tool"
+      ]
+    },
+    "layout": {
+      "default": "guide",
+      "description": "Page shell. \"guide\" (default): article column with meta line, \"On this page\", CTA box and (site mode) related guides. \"landing\": full-width sections, header with logo + CTA only, no meta line, rail or CTA box; start from templates/landing.html. \"article\": narrow centred reading column with serif headings, no header, no rail or CTA box, slim footer; start from templates/blog-article.html",
+      "type": "string",
+      "enum": [
+        "guide",
+        "landing",
+        "article"
+      ]
+    },
+    "hub": {
+      "default": "",
+      "description": "Slug of the hub (topic) this page belongs to, from site.json hubs. Empty = no hub",
+      "type": "string"
+    },
+    "related": {
+      "default": [],
+      "description": "Slugs to show first under Related guides. The build fills the rest by hub and keyword",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cta": {
+      "description": "Override the site CTA on this page only: the CTA box, the sticky bar, the hub-mode footer button and {{cta_url}}. In hub and single mode the header button keeps site.navCta when it is set; otherwise the header follows this too. E.g. a course page that promotes the course",
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "url",
+        "text"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "keyword",
+    "status",
+    "updated",
+    "ownProduct",
+    "featured",
+    "type",
+    "layout",
+    "hub",
+    "related"
+  ],
+  "additionalProperties": false
+}

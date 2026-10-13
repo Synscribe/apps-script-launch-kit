@@ -1,0 +1,185 @@
+/* Page layouts set by meta.json "layout": "landing" and "article". Loaded after components.css.
+   The default "guide" layout lives in base.css. Every colour is a token, so both layouts work in
+   light and dark mode and under a site theme.css. Snippets: prompts/page-html.md. */
+
+:root {
+  /* Serif display face for "article" pages (headings only). The build adds the Google Fonts link
+     from site.json theme.serifFontsUrl on article pages; the system serifs are the fallback. */
+  --font-serif: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --col-article: 700px;
+}
+
+/* =====================================================================
+   LANDING: full-width sections, each wrapped in .container by the page
+   ===================================================================== */
+.landing { padding-bottom: var(--s-8); }
+.lp-section { padding: var(--s-8) 0; }
+.lp-section.alt { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.lp-section.alt + .lp-section.alt { border-top: 0; }
+.lp-head { max-width: 62ch; margin: 0 auto var(--s-6); text-align: center; }
+.lp-head .kicker { color: var(--accent-ink); }
+.lp-head h2 { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.1rem); margin: 0 0 var(--s-3); letter-spacing: var(--heading-tracking); }
+.lp-head p { margin: 0 auto; color: var(--fg-2); font-size: var(--text-lg); max-width: 56ch; }
+@media (max-width: 699px) { .lp-section { padding: var(--s-7) 0; } .lp-head { margin-bottom: var(--s-5); } .lp-head p { font-size: var(--text-md); } }
+
+/* ---- Hero ---- */
+.lp-hero { padding: var(--s-8) 0 var(--s-7); }
+.lp-hero .container { display: grid; gap: var(--s-6); align-items: center; }
+@media (min-width: 900px) { .lp-hero .container { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: var(--s-8); } }
+.lp-hero.center .container { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+.lp-hero.center .lp-sub, .lp-hero.center h1 { margin-left: auto; margin-right: auto; }
+.lp-hero.center .lp-actions { justify-content: center; }
+.lp-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 var(--s-4); }
+.lp-eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 999px; background: var(--accent); flex: none; }
+.lp-hero h1 { font-size: clamp(2.25rem, 1.3rem + 3.4vw, 3.75rem); line-height: 1.05; letter-spacing: var(--heading-tracking); margin: 0 0 var(--s-4); max-width: 18ch; }
+.lp-sub { font-size: var(--text-lg); line-height: 1.5; color: var(--fg-2); max-width: 50ch; margin: 0 0 var(--s-5); }
+@media (min-width: 700px) { .lp-sub { font-size: 1.25rem; } }
+.lp-actions { display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; margin: 0 0 var(--s-4); }
+@media (max-width: 559px) { .lp-actions .btn { flex: 1 1 100%; } }
+.lp-trust { font-size: var(--text-sm); color: var(--muted); margin: 0; max-width: 50ch; }
+.lp-trust b { color: var(--fg-2); font-weight: 600; }
+
+/* ---- Mock product window (CSS only; no screenshots needed) ---- */
+.mock-window { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); overflow: hidden; font-size: var(--text-sm); }
+.mock-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: var(--bg); border-bottom: 1px solid var(--line); }
+.mock-bar i { display: block; width: 10px; height: 10px; border-radius: 999px; background: var(--line-strong); }
+.mock-bar span { margin-left: auto; font-size: var(--text-xs); color: var(--muted); }
+.mock-body { padding: var(--s-4); display: grid; gap: var(--s-3); }
+.mock-row { display: flex; align-items: center; gap: var(--s-3); padding: 10px 12px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); }
+.mock-row b { font-weight: 600; color: var(--fg); min-width: 0; }
+.mock-row span:not(.mock-dot) { margin-left: auto; font-size: var(--text-xs); color: var(--muted); white-space: nowrap; }
+.mock-dot { flex: none; width: 10px; height: 10px; border-radius: 999px; background: var(--ok); }
+.mock-dot.pending { background: var(--warn); }
+.mock-dot.todo { background: var(--line-strong); }
+.mock-lines { display: grid; gap: 8px; padding: 4px 2px; }
+.mock-lines i { display: block; height: 8px; border-radius: 999px; background: var(--surface-2); }
+.mock-lines i:nth-child(2) { width: 82%; }
+.mock-lines i:nth-child(3) { width: 58%; }
+.mock-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: var(--radius-btn); background: var(--accent-soft); color: var(--accent-ink); font-size: var(--text-xs); font-weight: 600; width: max-content; }
+
+/* ---- Problem -> outcome strip ---- */
+.lp-strip { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: var(--s-6) 0; }
+.lp-strip .container { display: grid; gap: var(--s-4); }
+@media (min-width: 760px) { .lp-strip .container { grid-template-columns: 1fr auto 1fr; align-items: stretch; gap: var(--s-5); } }
+.lp-before, .lp-after { padding: var(--s-4) var(--s-5); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--bg); }
+.lp-after { border-color: color-mix(in oklab, var(--accent) 35%, var(--line)); background: var(--accent-soft); }
+.lp-before h3, .lp-after h3 { font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 var(--s-2); }
+.lp-after h3 { color: var(--accent-ink); }
+.lp-before ul, .lp-after ul { margin: 0; padding-left: 1.2em; font-size: var(--text-sm); color: var(--fg-2); }
+.lp-after ul { color: var(--fg); }
+.lp-before li, .lp-after li { margin: 0.3em 0; }
+.lp-arrow { display: grid; place-items: center; font-size: var(--text-2xl); color: var(--muted); line-height: 1; }
+@media (max-width: 759px) { .lp-arrow { transform: rotate(90deg); padding: 0; } }
+
+/* ---- Feature grid ---- */
+.lp-grid { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.lp-feature { padding: var(--s-5); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--bg); box-shadow: var(--shadow-card); }
+.lp-icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: var(--radius); background: var(--accent-soft); color: var(--accent-ink); margin: 0 0 var(--s-3); }
+.lp-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.lp-feature h3 { font-size: var(--text-md); font-weight: 600; margin: 0 0 var(--s-1); }
+.lp-feature p { margin: 0; font-size: var(--text-sm); color: var(--fg-2); }
+
+/* ---- How it works ---- */
+.lp-how { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); counter-reset: lp; }
+@media (min-width: 760px) { .lp-how { grid-template-columns: repeat(3, 1fr); gap: var(--s-6); } }
+.lp-how > li { counter-increment: lp; margin: 0; padding-top: var(--s-4); border-top: 2px solid var(--fg); }
+.lp-how > li::before { content: "0" counter(lp); display: block; font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.08em; color: var(--accent-ink); margin: 0 0 var(--s-2); font-variant-numeric: tabular-nums; }
+.lp-how h3 { font-size: var(--text-lg); margin: 0 0 var(--s-2); }
+.lp-how p { margin: 0; font-size: var(--text-sm); color: var(--fg-2); }
+
+/* ---- Comparison: the product's column is highlighted ---- */
+.lp-compare .table-wrap { max-width: 880px; margin: 0 auto; }
+.lp-compare table { font-size: var(--text-sm); }
+.lp-compare th, .lp-compare td { padding: 12px 14px; }
+.lp-compare tbody td:first-child { font-weight: 600; color: var(--fg); }
+.lp-compare th.own, .lp-compare td.own { background: var(--accent-soft); }
+.lp-compare thead th.own { color: var(--accent-ink); }
+.lp-compare td.own { font-weight: 600; color: var(--fg); }
+.lp-compare tbody tr:hover td { background: transparent; }
+.lp-compare tbody tr:hover td.own { background: var(--accent-soft); }
+.lp-compare .no { color: var(--muted); }
+.lp-compare .yes::before { content: "\2713\00a0"; color: var(--ok); font-weight: 700; }
+.lp-compare .meta { text-align: center; margin: var(--s-3) 0 0; }
+
+/* ---- Use cases: rule-separated rows in columns ---- */
+.lp-uses .lp-grid { gap: 0 var(--s-6); }
+.lp-use { margin: 0; padding: var(--s-4) 0; border-top: 1px solid var(--line); }
+.lp-use h3 { font-size: var(--text-md); font-weight: 600; margin: 0 0 var(--s-1); }
+.lp-use p { margin: 0; font-size: var(--text-sm); color: var(--fg-2); }
+
+/* ---- FAQ and final CTA on a landing page ---- */
+.lp-faq .faq { max-width: var(--col); margin: 0 auto; }
+.lp-final { padding-top: 0; }
+.lp-final .cta-final { margin: 0; padding: var(--s-7) var(--s-5); }
+.cta-final.strong { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+.cta-final.strong h2, .cta-final.strong p, .cta-final.strong .fine { color: inherit; }
+.cta-final.strong .fine { opacity: 0.8; }
+.cta-final.strong .fine a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.cta-final.strong .btn { background: var(--accent-fg); color: var(--accent); }
+.cta-final.strong .btn:hover { background: color-mix(in oklab, var(--accent-fg) 90%, var(--accent)); }
+.cta-final.strong .btn.ghost { background: transparent; color: var(--accent-fg); border-color: color-mix(in oklab, var(--accent-fg) 50%, transparent); }
+.cta-final.strong .btn.ghost:hover { background: color-mix(in oklab, var(--accent-fg) 12%, transparent); }
+
+/* =====================================================================
+   ARTICLE: one narrow reading column, serif headings, no header
+   ===================================================================== */
+.article { overflow-x: clip; padding-bottom: var(--s-8); }
+.article-body { max-width: calc(var(--col-article) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
+@media (min-width: 700px) { .article-body { max-width: calc(var(--col-article) + 2 * var(--s-5)); padding: 0 var(--s-5); } }
+.article h1, .article h2, .article h3, .article .pick-no { font-family: var(--font-serif); font-weight: 600; letter-spacing: -0.015em; }
+.article h1 { font-size: clamp(2.25rem, 1.4rem + 3.2vw, 3.5rem); line-height: 1.08; margin: var(--s-3) 0 var(--s-4); max-width: 20ch; }
+.article h2 { font-size: clamp(1.55rem, 1.2rem + 1.2vw, 1.95rem); line-height: 1.2; margin: var(--s-8) 0 var(--s-4); padding-top: var(--s-6); border-top: 1px solid var(--line); }
+.article h3 { font-size: var(--text-xl); margin: var(--s-6) 0 var(--s-3); }
+.article p { max-width: none; }
+.article li { max-width: none; }
+.article .prose p, .article .prose li { line-height: 1.65; }
+
+/* Optional thin bar across the top (the first element in page.html). Full width inside the column. */
+.notice-bar { margin: 0 calc(50% - 50vw) var(--s-6); padding: 10px var(--gutter); background: var(--accent); color: var(--accent-fg); font-size: var(--text-sm); line-height: 1.4; text-align: center; }
+.notice-bar a { color: inherit; }
+.notice-bar.soft { background: var(--accent-soft); color: var(--fg-2); border-bottom: 1px solid var(--line); }
+.notice-bar.soft a { color: var(--accent-ink); }
+
+.article-kicker { font-size: var(--text-sm); font-weight: 600; letter-spacing: 0.01em; color: var(--accent-ink); margin: var(--s-7) 0 var(--s-3); }
+.notice-bar + .article-kicker { margin-top: var(--s-4); }
+.article .dek { font-size: 1.25rem; line-height: 1.5; color: var(--fg-2); margin: 0 0 var(--s-4); max-width: 58ch; }
+.article-meta { font-size: var(--text-sm); color: var(--muted); margin: 0 0 var(--s-6); padding-bottom: var(--s-6); border-bottom: 1px solid var(--line); }
+.article-meta time { color: var(--fg-2); }
+.article h2:first-of-type { margin-top: 0; padding-top: 0; border-top: 0; }
+
+/* A ranked pick inside the article: a bordered card with a number, a badge, two note boxes and one button.
+   Keep class="item" so the build adds it to the ItemList schema. */
+.article .item.pick { margin: var(--s-5) 0; padding: var(--s-5); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-card); }
+.article .item.pick.own { border-top: 3px solid var(--accent); }
+@media (min-width: 700px) { .article .item.pick { padding: var(--s-6); } }
+.pick-head { display: flex; align-items: baseline; gap: var(--s-3); flex-wrap: wrap; margin: 0 0 var(--s-3); }
+.pick-no { font-size: var(--text-2xl); color: var(--accent-ink); line-height: 1; }
+.pick-head h3 { margin: 0; font-size: var(--text-xl); }
+.pick-head .badge { align-self: center; }
+.article .pick p { font-size: var(--text-md); }
+.pick-notes { display: grid; gap: var(--s-3); margin: var(--s-4) 0; }
+@media (min-width: 560px) { .pick-notes { grid-template-columns: 1fr 1fr; } }
+.pick-notes > div { padding: var(--s-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); }
+.pick-notes h4 { font-size: var(--text-sm); font-weight: 700; margin: 0 0 var(--s-2); }
+.pick-notes .plus h4 { color: var(--ok); }
+.pick-notes .minus h4 { color: var(--warn); }
+.pick-notes ul { margin: 0; padding-left: 1.2em; font-size: var(--text-sm); color: var(--fg-2); }
+.pick-notes li { margin: 0.3em 0; max-width: none; }
+.pick-cta { display: flex; align-items: center; gap: var(--s-4); flex-wrap: wrap; margin: var(--s-4) 0 0; }
+.pick-cta .src { margin: 0; }
+@media (max-width: 559px) { .pick-cta .btn { width: 100%; } }
+
+.article .cta-band { margin: var(--s-6) 0; padding: var(--s-6) var(--s-5); }
+.article .cta-final { margin-top: var(--s-7); }
+.article table.compare td:first-child { white-space: normal; }
+
+/* ---- Slim footer (landing and article pages on a single-page site) ---- */
+.site-footer-slim { margin-top: 0; }
+.site-footer-slim .footer-name { font-weight: 700; color: var(--fg); margin: 0 0 var(--s-1); }
+.site-footer-slim .footer-map { text-align: left; margin-top: var(--s-4); }
+.layout-article .site-footer-slim .container { max-width: calc(var(--col-article) + 2 * var(--s-5)); }
+.layout-landing .site-footer-slim .container { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-6); align-items: baseline; }
+.layout-landing .site-footer-slim p { margin: 0; }
+.layout-landing .site-footer-slim .footer-map { margin: 0 0 0 auto; border: 0; padding: 0; }
+
+@media print { .notice-bar { display: none; } }
